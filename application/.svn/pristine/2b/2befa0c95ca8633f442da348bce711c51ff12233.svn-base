@@ -1,0 +1,23 @@
+<section class="news">
+	<h2><?php echo $settings->title; ?></h2>
+	
+	<?php foreach ($items as $item): ?>
+		<div class="item">
+			<a href="<?php echo URL::to('News@view:'.$item->alias,'news'); ?>" title="<?php echo $item->title ?>" class="blockLink">
+				<div class="description">
+					<div class="image">
+						<?php if($image = $item->image_collection->first()): ?>
+							<img src="<?php echo $image->src('thumb'); ?>" width="59" alt="<?php echo $image->title; ?>" />
+						<?php endif; ?>
+					</div>
+					<h3><?php echo $item->title; ?></h3>
+					<?php echo Tool::truncate_html(strip_tags($item->raw('body'),'<br>,<br />'),80,'...'); ?>
+				</div>
+			</a>
+		</div>
+	<?php endforeach; ?>
+	
+	<?php if($settings->more == '1'): ?>
+		<a href="<?php echo URL::to('News'); ?>" class="button-more"><?php echo $settings->more_label; ?></a>
+	<?php endif; ?>
+</section>

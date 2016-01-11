@@ -1,0 +1,102 @@
+<?php
+return array(
+	'logout'=>			'uitloggen',
+	'section'=>array(
+		'start'=>		'start',
+		'organize'=>	'structuur',
+		'content'=>		'inhoud',
+		'files'=>		'bestanden',
+		'users'=>		'gebruikers',
+		'settings'=>	'instellingen',
+	),
+	'label'=>array(
+		'cancel'=>		'annuleer',
+		'back'=>		'terug',
+		'confirm'=>		'ok',
+		'save'=>		'opslaan',
+		'submit'=>		'opslaan',
+		'submit_back'=>	'opslaan en terug',
+		'update'=>		'wijzig',
+		'delete'=>		'verwijder',
+		'show'=>		'toon',
+		'hide'=>		'verberg',
+		'preview'=>		'preview',
+		'filter'=>		'zoeken',
+		'open'=>		'open',
+		'close'=>		'sluit',
+		'previous'=>	'vorige',
+		'next'=>		'volgende',
+		'view'=>		'bekijk',
+		'view_file'=>	'bekijk bestand',
+		'view_image'=>	'bekijk',
+		'use'=>			'gebruik',
+		'create'=>		'nieuw',
+		'create_group'=>'nieuwe groep',
+		'add'=>			'toevoegen',
+		'add_image'=>	'afbeelding toevoegen',
+		'add_file'=>	'document toevoegen',
+		'add_video'=>	'filmpje toevoegen',
+		'add_image'=>	'afbeelding toevoegen',
+		'link_create'=>	'link toevoegen',
+		'link_update'=>	'link wijzigen',
+		'link_delete'=>	'link verwijderen',
+		'delete_link'=>	'verwijder',
+		'choose'=>		'maak een keuze',
+		'browse'=>		'selecteer',
+		'content'=>		'inhoud',
+		'seo'=>			'zoekmachines',
+		'settings'=>	'instellingen',
+		'collection'=>	'koppelingen',
+		'text'=>		'tekst',
+		'group'=>array(
+			'all'=>'alle :plural',
+			'ungrouped'=>':plural zonder groep',
+			'manage'=>'groepen beheren',
+		)
+	),
+	'option'=>array(
+		'parent_id'=>array(
+			0=>			'in hoofdgroep plaatsen'
+		)
+	),
+	'title'=>array(
+		'index'=>		':name overzicht',
+		'list'=>		':name overzicht',
+		'create'=>		':new :single',
+		'update'=>		':single bewerken',
+	),
+	'dialog'=>array(
+		'alert'=>		'let op',
+		'confirm'=>		'bevestigen',
+		'add_image'=>	'afbeelding toevoegen',
+		'add_link'=>	'link toevoegen',
+	),
+	'question'=>array(
+		'delete'=>		'wilt u :this :single verwijderen?',
+		'link_delete'=>	'wilt u deze link verwijderen?',
+	),
+	'message'=>array(
+		'created'=>		':article :single is aangemaakt',
+		'updated'=>		':article :single is aangepast',
+		'deleted'=>		':article :single is verwijderd',
+		'copied'=>		':article :single is gekopieerd',
+		'invalid'=>		':article :single bevat nog fouten en is niet opgeslagen',
+	),
+	'time'=>array(
+		'days'=>		array('zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'),
+		'days_short'=>	array('zo','ma','di','wo','do','vr','za'),
+		'months'=>		array('januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'),
+		'months_short'=>array('jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'),
+		'now'=>			'nu',
+		'today'=>		'vandaag',
+		'hour'=>		'uur',
+		'minute'=>		'minuut',
+		'date'=>		'datum',
+		'time'=>		'tijd',
+		'format'=>array(
+			'date'=>	'DD d MM yy',
+			'time'=>	'hh:mm',
+			'separator'=>' om ',
+		)
+	)
+);

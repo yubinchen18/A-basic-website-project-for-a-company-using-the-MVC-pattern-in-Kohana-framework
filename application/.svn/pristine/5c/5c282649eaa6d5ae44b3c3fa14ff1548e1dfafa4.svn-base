@@ -1,0 +1,17 @@
+<section>
+	<h2><?php echo $content->title; ?></h2>
+		
+	<?php if ($content->image->loaded() === TRUE): ?>
+		<img class="image-100-percent" src="<?php echo $content->image->src('home'); ?>" alt="image" />	
+	<?php endif; ?>
+	<div class="description">
+		<?php echo nl2br($content->text); ?>
+	</div>
+	<?php if($content->link->loaded() === TRUE): ?>
+		<a href="<?php echo $content->link->url(); ?>" class="button-more"><?php echo $content->cta; ?></a>
+	<?php else: ?>
+		<?php echo $content->cta; ?>
+	<?php endif; ?>
+
+	
+</section>

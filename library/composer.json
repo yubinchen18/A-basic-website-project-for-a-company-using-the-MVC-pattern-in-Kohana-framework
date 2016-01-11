@@ -1,0 +1,15 @@
+{
+    "name": "yf3/library",
+    "version": "3",
+    "description": "Yuna Framework 3 Library",
+    "authors": [
+        {
+            "name": "Martijn Heijnen",
+            "email": "martijn@yuna.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    }
+}

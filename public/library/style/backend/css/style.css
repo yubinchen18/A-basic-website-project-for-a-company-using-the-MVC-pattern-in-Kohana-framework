@@ -1,0 +1,116 @@
+/**
+*  Properties that have to do with the look of specific elements
+*/
+
+
+/* Module navigation */
+body > .navigation {
+	background: #f7f7f7;
+	opacity: 0.95;
+	border-bottom: 1px solid #c7c7c7
+}
+
+/* show hide list icon */
+.show-hide span.glyphicon-eye-close{
+	opacity: 0.4;
+}
+/* block unblock items */
+.show-hide span.glyphicon-lock{
+	opacity: 0.4;
+}
+
+
+/**
+* TREE STYLING
+*/
+ul.tree li div.content{
+	background: #FFF;
+	border: 1px solid #DDD;
+	border-radius: 5px;
+}
+ul.tree li.depth-1 div.content{
+	background: #F9F9F9;
+}
+ul.tree li.depth-2 div.content{
+	background: #F4F4F4;
+}
+ul.tree li.depth-3 div.content{
+	background: #E9E9E9;
+}
+ul.tree li.depth-4 div.content{
+	background: #DDD;
+}
+
+
+ul.tree li.active > div.content{
+	background: #c4e3f3;
+}
+/* placeholder */
+ul.tree li.placeholder{
+	background: #FFF;
+	border: 1px dashed #777;
+	border-radius: 5px;
+}
+ul.tree li.placeholder.error{
+	background: #FFEEEE;
+	border: 1px dashed #FF0000;
+}
+
+/* move handler */
+span.handle{
+	opacity: .2;
+	cursor: move;
+}
+
+
+/* Form section */
+form .section{
+	padding: 10px;
+	border-radius: 4px;
+	background: #F3F3F3;
+	border: 1px solid #DDD;
+}
+
+form .section .section-nested{
+	background: #FFF;
+}
+
+/**
+* COLLECTION STYLING
+*/
+form .collection .item{
+	background: #FFF;
+	border-radius: 4px;
+	padding:8px;
+}
+
+form .collection .item.movable{
+	cursor: move;
+}
+
+/**
+* Invisible alias input
+*/
+.tag-box{
+	height: auto;
+	min-height: 32px;
+}
+
+.tag-box a.remove{
+	color: white;
+	text-decoration: none;
+}
+input.tag-input{
+	padding:0;
+	margin:0;
+	border: 0;
+	box-shadow: none;
+}
+
+.tag-item{
+	float:left;
+}
+
+
+
+

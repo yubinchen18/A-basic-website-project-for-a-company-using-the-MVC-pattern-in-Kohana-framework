@@ -1,0 +1,23 @@
+<section class="yf cta<?php echo $content->importance>=2 ? ' important' : ''; ?>" data-use="Newsletter" data-url="<?php echo URL::to('Page@newsletter'); ?>">
+	
+	<h2><?php echo $content->title; ?></h2>
+	
+	<div class="yf-before description">
+		<?php echo $content->text; ?>
+	</div>
+	
+	<div class="yf-after description" style="display:none;">
+		<?php echo $content->body; ?>
+	</div>
+
+	<div class="" >
+		<form>
+			<div class="yf-error error" style="display:none;">
+				Vul een geldig e-mailadres in 
+			</div>
+			<input type="text" class="yf-email" placeholder="E-mail" />
+		</form>
+	</div>
+		
+	<a href="#" class="yf-button button importance-<?php echo $content->importance; ?>"><?php echo $content->cta; ?></a>
+</section>

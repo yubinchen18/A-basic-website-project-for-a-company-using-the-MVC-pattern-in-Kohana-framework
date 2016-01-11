@@ -1,0 +1,1 @@
+<span class="icon icon_<?php echo $item->behaviour; ?>"></span>

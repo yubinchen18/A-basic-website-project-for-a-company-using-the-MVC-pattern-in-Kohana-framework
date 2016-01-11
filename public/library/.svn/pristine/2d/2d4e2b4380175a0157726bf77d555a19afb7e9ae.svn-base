@@ -1,0 +1,613 @@
+form {
+
+}
+
+
+form input[type='text'],
+form input[type='password'],
+form textarea {
+	border: 1px solid #bdbdbd;
+	background: #f4f4f4;
+
+	-webkit-border-radius:	5px;
+	-moz-border-radius: 		5px;
+	border-radius: 			5px;	
+	
+	-webkit-box-shadow:	inset 0px 2px 3px 0px rgb(203, 203, 203);
+	-moz-box-shadow: 		inset 0px 2px 3px 0px rgb(203, 203, 203);
+	box-shadow: 			inset 0px 2px 3px 0px rgb(203, 203, 203); 
+
+	width: 620px;
+	padding: 0px 10px;
+}
+
+
+form li input:focus, 
+form li textarea:focus {
+	-webkit-box-shadow:	inset 0px 2px 3px 0px rgb(203, 203, 203), 0px 0px 3px 2px rgba(203,203,203,1);
+	-moz-box-shadow: 		inset 0px 2px 3px 0px rgb(203, 203, 203), 0px 0px 3px 2px rgba(203,203,203,1);
+	box-shadow: 			inset 0px 2px 3px 0px rgb(203, 203, 203), 0px 0px 3px 2px rgba(203,203,203,1);
+	border: 1px solid #919191;
+} 
+
+div.contents:focus {
+	order: 2px solid red;
+}
+
+form input[type="text"],
+form input[type='password']{
+	height: 30px;
+	line-height: 30px;
+}
+
+form input[type="checkbox"],
+form input[type="radio"] {
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+form li.required input,
+form li.required textarea,
+form li.required .defaultSkin table.mceLayout {
+	border: 1px solid #4B93DD;
+
+}
+
+
+form li.required input:focus,
+form li.required textarea:focus,
+form li.required .defaultSkin table.mceLayout {
+	border: 1px solid #3D6D9F;
+}
+
+
+
+div.contents {
+	margin-bottom: 10px;
+	position: relative;
+}
+
+div.contents:after {
+	content: '';
+	clear: both;
+	display: block;
+}
+
+div.contents span{
+
+}
+
+div.submit .contents {
+	margin-bottom: 3px;
+	margin-top: 3px;
+	padding: 4px;
+}
+
+div.submit ul {
+	height: 40px;
+}
+
+a.btn {
+	cursor: pointer;
+	text-decoration: none;
+	margin-top: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	padding: 0px 20px 0px 15px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #777777;
+	float: left;
+	background: url(../img/bg_btn_cancel.gif) top left repeat-x;
+	background: -moz-linear-gradient(
+		top,
+		#ebebeb 0%,
+		#cacaca);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#ebebeb),
+		to(#cacaca));
+	border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border: 1px solid #b5b5b5;
+	-moz-box-shadow: 0px 1px 0px rgba(000,000,000,0),
+		inset 0px 1px 0px rgba(255,255,255,1);
+	-webkit-box-shadow: 0px 1px 0px rgba(000,000,000,0),
+		inset 0px 1px 0px rgba(255,255,255,1);
+	box-shadow: 0px 1px 0px rgba(000,000,000,0),
+		inset 0px 1px 0px rgba(255,255,255,1);
+	-webkit-box-shadow: 0px 1px 0px rgba(000,000,000,0),
+		inset 0px 1px 0px rgba(255,255,255,1);
+	text-shadow: 1px 1px 0px rgba(255,255,255,1),
+		0px 0px 0px rgba(0,0,0,1);
+		display: inline-block;
+}
+
+a.btn.inactive {
+	color: #bbbbbb;
+}
+/*
+a.btn.active {
+	background: -moz-linear-gradient(
+		top,
+		#79bcff 0%,
+		#388ee5);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#79bcff),
+		to(#388ee5));
+}*/
+
+div a.btnConfirm,
+a.btnSubmit,
+a.btn.active {
+	color: #ffffff;
+	background: url(../img/bg_btn_submit.gif) top left repeat-x;
+	background: -moz-linear-gradient(
+		top,
+		#79bcff 0%,
+		#388ee5);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#79bcff),
+		to(#388ee5));
+	border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border: 1px solid #84bcf3;
+	-moz-box-shadow: 0px 1px 0px rgba(000,000,000,0),
+		inset 0px 1px 0px 0px rgba(187, 218, 247, 1);
+	-webkit-box-shadow: 0px 1px 0px rgba(000,000,000,0),
+		inset 0px 1px 0px 0px rgba(187, 218, 247, 1);
+	box-shadow: 0px 1px 0px rgba(000,000,000,0),
+		inset 0px 1px 0px 0px rgba(187, 218, 247, 1);
+	text-shadow: 1px 1px 0px rgba(82,142,214,1),
+		0px 0px 0px rgba(0,0,0,1);
+}
+
+.formElementWidget .btn {
+	margin: 0px 5px 5px 0px;
+}
+
+div.submit a.btn {
+	margin: 0px 10px 0px 0px;
+}
+
+div.submit a.btn.floatRight {
+	margin: 0px 0px 0px 10px;
+}
+
+.btnSubmit span{
+	padding-left: 25px;
+	background: url(../img/bg_btn_submit_icon.png) left 1px no-repeat;
+}
+
+a.btnCancel span {
+	padding-left: 25px;
+	background: url(../img/bg_btn_cancel_icon.png) left 1px no-repeat;
+}
+
+a.btnConfirm:active,
+a.btnCancel:active {
+	position: relative;
+	top: 1px;
+}
+
+a.btnCancel { }
+
+/*jquery ui selectmenu*/
+.selectMenu  {
+	color: #fff;
+	text-decoration: none;
+	text-align: left;
+}
+
+ul.selectMenu  {
+	background: #000;
+	color: #fff;	
+	border: none;
+}
+
+ul.selectMenu  li.ui-state-hover{
+	border: none;
+}
+
+a.selectMenu  {
+	background: #000;
+}
+
+.ui-corner-all {
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.ui-corner-top {
+	overflow: hidden;
+	
+	-moz-border-radius-topleft: 6px;
+	-moz-border-radius-topright: 6px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	-webkit-border-radius: 6px 6px 0px 0px;
+	border-radius: 6px 6px 0px 0px;
+}
+
+.ui-corner-bottom,
+.ui-corner-bottom a {
+/*
+	-moz-border-radius-topleft: 0px!important;
+	-moz-border-radius-topright: 0px!important;
+	-moz-border-radius-bottomright: 6px!important;
+	-moz-border-radius-bottomleft: 6px!important;
+	-webkit-border-radius: 0px 0px 6px 6px!important;
+	border-radius: 0px 0px 6px 6px!important;
+	overflow: hidden;*/
+}
+
+ul.selectMenu  a {
+	color: #fff;
+}
+
+.ui-selectmenu-icon {
+	background:	url(../img/bg_ui_select_arrow.gif);
+	width: 7px;
+	height: 4px;
+}
+
+.ui-state-active {
+	color: #888888;
+}
+
+.ui-state-active .ui-selectmenu-icon {
+	background:	url(../img/bg_ui_select_arrow_active.gif);
+}
+a.ui-state-hover {
+	background: #347BC3;
+	background: url("../img/bg_columnnav_li_active.png") repeat-x scroll left bottom transparent;
+}
+
+a.ui-state-active {
+	background: #000;
+}
+ul.selectMenu li.ui-state-hover a {
+
+	background: #6EB3FB url("../img/bg_columnnav_li_active.png") repeat-x scroll left bottom;
+}
+
+ul.ui-selectmenu-menu li.ui-selectmenu-item-selected {
+	display: none;
+}
+
+
+/* Selectmenu
+----------------------------------*/
+
+.ui-selectmenu { display: block; position:relative; height:2em; text-decoration: none; overflow:hidden;}
+.ui-selectmenu-icon { position:absolute; right:6px; top: 40%; }
+.ui-selectmenu-menu { padding:0; margin:0; list-style:none; position:absolute; top: 0; visibility: hidden; overflow: auto; }
+.ui-selectmenu-open { visibility: visible; }
+.ui-selectmenu-menu-popup { margin-top: -1px; }
+.ui-selectmenu-menu-dropdown { }
+.ui-selectmenu-menu li {
+	padding: 0;
+	margin: 0;
+	display: block;
+	border-right-width: 0 !important;
+	border-left-width: 0 !important;
+	font-weight: normal !important;
+}
+.ui-selectmenu-menu li a,.ui-selectmenu-status {
+
+	line-height: 1.4em;
+	display: block;
+	padding: .3em 1em;
+	outline: none;
+	text-decoration: none;
+	border: none;
+}
+.ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
+.ui-selectmenu-hasIcon .ui-selectmenu-status { padding-left: 20px; position: relative; margin-left: 5px; }
+.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon { position: absolute; top: 1em; margin-top: -8px; left: 0; }
+.ui-selectmenu-status { line-height: 1.4em; }
+.ui-selectmenu-open li.ui-selectmenu-item-focus a {  }
+.ui-selectmenu-open li.ui-selectmenu-item-selected { }
+.ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .2em; }
+.ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: bold; }
+.ui-selectmenu-menu li .ui-selectmenu-item-content {  }
+.ui-selectmenu-menu li .ui-selectmenu-item-footer { opacity: .8; }
+/*for optgroups*/
+.ui-selectmenu-menu .ui-selectmenu-group { font-size: 1em; }
+.ui-selectmenu-menu .ui-selectmenu-group .ui-selectmenu-group-label { line-height: 1.4em; display:block; padding:.6em .5em 0; font-weight: bold; }
+.ui-selectmenu-menu .ui-selectmenu-group ul { margin: 0; padding: 0; }
+
+
+.ui-selectmenu-menu .ui-state-hover a, .ui-selectmenu-menu .ui-state-hover a:hover {
+	color: #fff;
+}
+
+
+/* jquery timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+
+/* columnNav search */
+.columnNav form input[type='text'] {
+	border: 1px solid #bdbdbd;
+	background: #f4f4f4;
+	
+/*	-webkit-box-shadow: inset 0px 2px 3px 0px rgb(203, 203, 203);
+	-moz-box-shadow: inset 0px 2px 3px 0px rgb(203, 203, 203);
+	box-shadow: inset 0px 2px 3px 0px rgb(203, 203, 203); */
+
+	width: 150px;
+	padding-right: 30px;
+	
+	-webkit-border-radius:	3px;
+	-moz-border-radius: 		3px;
+	border-radius:				3px;
+}
+
+.columnNav form input[type="text"]{
+	height: 25px;
+	line-height: 25px;
+}
+
+/**/
+form div.narrow:first-child  {
+display: none;
+}
+
+div.compact li{
+	display: block;
+	float: left;
+}
+
+div.compact div.wrap {
+	float: left;
+	padding-left: 10px;
+}
+
+div.compact input[type="text"] {
+	width: 245px;
+	display: block
+}
+
+div.section ul {
+	width: 642px;
+}
+
+div.section.compact ul {
+	width: 682px;
+} 
+
+div.compact li {
+	width: 320px;
+	float: right;
+	clear: none;
+	display: inline;
+	margin-right: 20px;
+	min-height: 60px;
+}
+
+div.time_show input[type="checkbox"] {
+	position: relative;
+	top: 27px;
+	float: left;
+}
+
+form input[disabled] {
+	color: #d6d6d6;
+}
+
+.time_show > div {
+	margin-bottom: 10px;
+	clear: both;
+	display: block;
+	float: left;
+	width: 100%;
+}
+
+/* Find section - sort and filter */
+
+.plugin_find_box {
+padding-top: 1em;
+}
+
+.plugin_find_row {padding-bottom: 1em;}
+
+form .plugin_find_row select {margin-right: 20px;}
+form .plugin_find_row select:first-child {margin-left: 0px;}
+
+form .plugin_find_row input[type="text"] {
+	argin-left: 20px;
+	width: 325px;
+}
+
+/* paginate - attached to sort*/
+
+.columnContent div.submit.find_paginate
+{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box;
+	padding: 5px ;
+	width:100%;
+}
+
+.columnContent div.submit.find_paginate div.submit a.btn.floatRight
+{
+	margin: 5px;
+}
+
+div.find_paginator_box
+{
+	display: inline-block;
+	float: left;
+	padding: 0 10px;
+	line-height: 30px;
+}
+
+div.find_paginator_box span {
+	margin-right: 5px;
+}
+
+a.yf_plugin_find_show,
+a.yf_plugin_find_hide
+{
+	float: right;
+	line-height: 30px;
+	margin-left: 10px;
+	margin-right: 10px;
+	color: #519FF0
+}
+
+ a.yf_plugin_find_show:hover,
+ a.yf_plugin_find_hide:hover
+{
+	background: transparent;
+	color: white;
+}
+
+
+/*errors*/
+form span.error {
+	color: red;
+}
+
+
+div.caption.error {
+	background: url(../img/bg_caption_error.png) top left repeat;
+	display: inline-block;
+	position: absolute;
+	top: -45px;
+	right: 0px;
+	padding: 11px 30px 0px 15px;
+	max-width: 300px;
+	
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+div.error .bottom {
+	position: relative;
+	height: 11px;
+	bottom: -11px;
+	background: url(../img/bg_caption_error_bottom.png) top center no-repeat;
+}
+
+div.formElementError {
+	color: red;
+}
+
+/*comments*/
+div.caption.comment {
+	background: url(../img/bg_caption_comment.png) top left repeat;
+	display: inline-block;
+	position: absolute;
+	left: 0px;
+	top: -45px;
+	padding: 11px 30px 0px 15px;
+	max-width: 300px;
+	display: none;
+	
+	-moz-border-radius: 		5px;
+	-webkit-border-radius: 	5px;
+	border-radius: 			5px;
+}
+
+div.caption span.close {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 15px;
+	height: 15px;
+	display: block;
+	cursor: pointer;
+	background: url(../img/caption_close.png) 5px 5px no-repeat;
+}
+
+div.comment .bottom {
+	position: relative;
+	height: 11px;
+	bottom: -11px;
+	background: url(../img/bg_caption_comment_bottom.png) top center no-repeat;
+}
+
+div.caption span.message {
+	color: #fff;
+}
+
+form .select {
+	background: #ebebeb url(../img/bg_form_select.gif) repeat-x;
+	width: 268px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	height: 30px;
+	
+	border-radius : 			4px;
+	-moz-border-radius: 		4px;
+	-webkit-border-radius: 	4px;
+}
+
+div.formElementRequest, 
+div.formElementLink{
+	background: #e4e4e4;
+	margin-bottom: 10px;
+	padding: 4px 5px;
+	clear: both;
+	
+	-moz-border-radius: 		5px;
+	-webkit-border-radius: 	5px;
+	border-radius: 			5px;
+}
+
+.formElementLink {
+	min-height: 31px;
+	padding: 3px 5px;
+}
+
+.requestPreview {
+	display: inline;
+	margin-left: 8px;
+}
+
+a.requestBrowse,
+a.linkBrowse {
+	float: right;
+	display: block;
+	width: 15px;
+	height: 15px;
+	margin-top: 8px;
+	margin-right: 10px;
+}
+
+a.requestBrowse span,
+a.linkBrowse span {
+	display: none;
+}
+
+a.requestBrowse.create,
+a.linkBrowse.create {
+	background: url(../img/btn_add.png) top left no-repeat;
+}
+
+a.requestBrowse.update,
+a.linkBrowse.update {
+	background: url(../img/icon_tools_update.png) top left no-repeat;
+}
+
+.linkPreview {
+	display: inline-block;
+}

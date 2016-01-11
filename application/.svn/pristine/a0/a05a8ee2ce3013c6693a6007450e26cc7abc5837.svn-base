@@ -1,0 +1,272 @@
+<?php
+
+class Controller_Module extends Controller_Base
+{
+
+	//Item view (set in other controllers)
+	protected $_view_item = '';
+	// Module view (set in other controllers)
+	protected $_view_module = '';
+	//The menu's to render
+	protected $_menus = array('top','main');
+	// Whether we are in preview mode
+	protected $_preview = FALSE;
+	
+
+	public function init()
+	{
+		// Base init
+		parent::init();
+		
+		// init text
+		$this->text($this->_website->get('language'),$this->_controller);
+	}
+	
+	
+	/**
+	 * Default: go to view
+	 */
+	public function action_index()
+	{
+		$this->action_view();
+	}
+	
+	
+	/**
+	 * View item or module
+	 */
+	public function action_view()
+	{
+		if($this->_cached === FALSE){
+			// prepare full page
+			$this->page();
+
+			// get id
+			$id = $this->request->param('id',FALSE);
+			// check id
+			if($id === FALSE){
+				// no id given: call ::items method
+				$view = $this->_view_module;
+				$item = NULL;
+				$items = $this->items();
+
+			} else {
+				$view = $this->_view_item;
+				$item = $this->item($id);	
+				// breadcrumbs
+				Breadcrumbs::instance()->add(URL::to($this->_controller.'@view:'.$id),$item->title);
+				// seo
+				$this->_seo->title .= ' '.(isset($item->meta_title) ? $item->meta_title : '');
+				$this->_seo->description .= ' '.(isset($item->meta_description) ? $item->meta_description : '');
+				$this->_seo->keywords .= ','.(isset($item->meta_keywords) ? $item->meta_keywords : '');
+				$items = $this->items();
+			}
+
+			// create view
+			$view = View::factory($view,array(
+				'controller'=>$this->_controller,
+				'items'=>Viewer::factory($items),
+				'item'=>Viewer::factory($item)
+			));
+
+			// done
+			$this->response->body($view->render());
+		}
+	}
+	
+	
+	/**
+	 * Preview from backend
+	 */ 
+	public function action_preview()
+	{
+		// get params 
+		$id = $this->request->param('id',FALSE);
+		$hash = $this->request->param('param1',FALSE);
+		$token = ORM::factory('Token',array('hash'=>$hash));
+		
+		if($token->loaded() == TRUE){
+			$this->_preview = TRUE;
+			$token->delete();
+			$this->action_view();
+		}
+	}
+	
+	
+	/**
+	 * Get a single item in this module
+	 * Can be overwriten in controllers to get more specific output
+	 */ 
+	protected function item($id)
+	{
+		// get model
+		$model = ORM::factory($this->_controller)
+		->filter('website_id',$this->_website->id());
+
+		// set status live (or not, in case of preview)
+		if($this->_preview !== TRUE){
+			$model->filter('status',Model_Item::STATUS_LIVE);
+		}
+
+		// load
+		$model->load($id);
+		
+		// check model
+		if($model->loaded() === FALSE){
+			throw HTTP_Exception::factory(404,'Page not found');
+		}
+		return $model;
+	}
+	
+	
+	/**
+	 * Get all items for a module
+	 * Can be overwriten in controllers to get more specific output
+	 */ 
+	protected function items()
+	{
+		// get items
+		return ORM::factory($this->_controller)
+		->filter('website_id',$this->_website->id())
+		->filter('status',Model_Item::STATUS_LIVE)
+		->items();
+	}
+	
+	
+	/**
+	 * view multiple items as preview on other page
+	 */
+	public function action_excerpts(){}
+
+
+	/**
+	 * view item as preview on other page
+	 */
+	public function action_excerpt(){}
+	
+	
+	/**
+	 * Prepare a full page render
+	 * Set first breadcrumb
+	 * Set Seo
+	 * Set menu
+	 * Set footer
+	 */
+	protected function page()
+	{
+		// breadcrumbs
+		Breadcrumbs::instance()->add(URL::to(''),'Home',array('class'=>'home'));
+				
+		// init seo
+		$this->_seo = $this->seo($this->_config);
+
+		// init menu 
+		$this->menu($this->_website,$this->_menus);
+		
+		// init footer
+		$this->footer($this->_website);
+	}
+	
+	
+	/**
+	 * Set default seo settings
+	 * @param type $website
+	 */
+	protected function seo($config)
+	{
+		// set seo data object
+		$seo = new stdClass();
+		$seo->title = $config->seo_title;
+		$seo->description = $config->seo_description;
+		$seo->keywords = $config->seo_keywords;
+		
+		// set view global
+		View::set_global('_seo',$seo);
+		
+		return $seo;
+	}
+	
+	
+	/**
+	 * Get navigation and set it as global in the view
+	 */
+	protected function menu($website,$sections = FALSE)
+	{
+		// sections to get
+		if($sections === FALSE){
+			// just return
+			return FALSE;
+		} elseif(!is_array($sections)){
+			// make sure sections is an array
+			$sections = array($sections);
+		} 
+		// init cache
+		$cache = Cache::instance('content');
+		$key = 'content_menu_'.$website->id();
+		
+		if($cached = $cache->get($key)){
+			foreach($sections as $section){
+				// set cached
+				View::set_global('_menu_'.$section,isset($cached[$section]) ? $cached[$section] : '');
+			}
+		} else {
+			// get ready to cache
+			$cached = array();
+			
+			// create a model
+			$model = ORM::factory('Menu')
+			->filter('status',Model_Item::STATUS_LIVE)
+			->filter('website_id',$website->id());
+
+			foreach($sections as $section){
+				// get a databranch
+				$items = $model->branch($section)->items();
+				// create a view
+				$view = View::factory('menu/'.$section,array('items'=>$items,'depth'=>0));
+				// html
+				$html = $view->render();
+				// render and store globally
+				View::set_global('_menu_'.$section,$html);
+				// cache it
+				$cached[$section]=$html;
+			}
+			// store cache
+			$cache->set($key,$cached);
+		}
+
+	}
+	
+
+	/**
+	 * Get navigation and set it as global in the view
+	 */
+	protected function footer($website)
+	{
+		// init cache
+		$cache = Cache::instance('content');
+		if($this->request->controller() == 'Home'){
+			$key = 'content_footer_home_'.$website->id();
+		} else {
+			$key = 'content_footer_next_'.$website->id();
+		}
+
+		if($cached = $cache->get($key)){
+			// set cached
+			View::set_global('_footer',$cached);
+		} else {
+			// create a model
+			$model = ORM::factory('Footer')
+			->filter('status',Model_Item::STATUS_LIVE)
+			->filter('website_id',$website->id())
+			->find();
+			// create a view
+			$view = View::factory('footer',array('footer'=>$model,'controller'=>$this->_controller));
+			// html
+			$html = $view->render();
+			// render and store globally
+			View::set_global('_footer',$html);
+			// cache it
+			$cache->set($key,$html);
+		}
+	}
+}

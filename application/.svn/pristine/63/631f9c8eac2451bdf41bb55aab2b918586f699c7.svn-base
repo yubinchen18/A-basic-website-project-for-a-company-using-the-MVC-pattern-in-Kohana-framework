@@ -1,0 +1,39 @@
+<?php
+class Form_Reset extends Form_Base
+{
+	public function init()
+	{
+		// set action
+		$this->action = Route::url('default',array('controller'=>'auth','action'=>'reset','id'=>$this->token));
+		
+		// set attributes
+		$this->attributes = array('class'=>'form');
+		
+		// add fields
+		$this->element('password','password');
+		$this->element('password2','password');
+		$this->element('reset','submit');
+		
+		$this->rule('password','not_empty');
+		$this->rule('password','min_length',array(':value', 6));
+		$this->rule('password2','not_empty');
+		$this->rule('password2',array($this,'password_matches'));
+	}
+	
+	
+	/**
+	 * password matching validator
+	 *
+	 * @return boolean
+	 */
+	public function password_matches($password2)
+	{
+		$values = $this->values();
+		
+		if($values['password'] === $password2){
+			return true;
+		} else {
+			return false;
+		}
+	}
+}

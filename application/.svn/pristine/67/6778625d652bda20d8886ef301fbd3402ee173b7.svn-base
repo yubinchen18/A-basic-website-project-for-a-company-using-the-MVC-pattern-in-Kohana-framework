@@ -1,0 +1,42 @@
+<?php View::extend('base'); ?>
+
+<?php View::start_block('content') ?>
+
+	<header class="hidden-small">
+		<div class="container">
+			<?php echo View::factory('common/slider',array('slides'=>$item->slide_collection->items()))->render(); ?>
+		</div>
+	</header>
+
+	<div class="container cta">
+		<div class="row-fluid">
+			<?php
+			$number = count($item->content_collection_1->items());
+			$number = $number <=0 ? 1 : $number;
+			$colspan = floor(12/$number);
+			?>
+			<?php foreach ($item->content_collection_1->items() as $content): ?>
+				<div class="colspan-<?php echo $colspan ?>">
+					<?php echo View::factory('content/'.$content->type,array('content'=>$content,'scaler'=>TRUE)); ?>
+				</div> <!--//colspan-3-->
+			<?php endforeach; ?>
+		</div>
+	</div>
+		
+	
+	<div class="container">
+		<div class="row-fluid">
+			<?php
+			$number = count($item->content_collection_2->items());
+			$number = $number <=0 ? 1 : $number;
+			$colspan = floor(12/$number);
+			?>
+			<?php foreach ($item->content_collection_2->items() as $content): ?>
+				<div class="colspan-<?php echo $colspan ?>">
+					<?php echo View::factory('content/'.$content->type,array('content'=>$content)); ?>
+				</div> <!--//colspan-3-->
+			<?php endforeach; ?>
+		</div>
+	</div>
+	
+<?php View::end_block(); ?>

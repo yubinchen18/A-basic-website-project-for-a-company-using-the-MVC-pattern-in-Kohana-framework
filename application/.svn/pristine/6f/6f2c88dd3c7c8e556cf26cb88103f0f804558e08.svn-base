@@ -1,0 +1,34 @@
+<?php
+class Controller_Error extends Controller
+{
+	public function action_view()
+	{
+		// get exception
+		$exception = $this->request->post('exception');
+		try{
+			// get code & message
+			$code =  (string) ($exception->getCode()>0 ? $exception->getCode():500);
+			$message = $exception->getMessage();
+			// set status
+			$this->response->status($code);
+			// set 404 header
+			if($code == 404){
+				$this->response->headers('HTTP/1.1', '404');
+			}
+			// create page
+			$view = View::factory('error',array(
+				'code'=>$code,
+				'message'=>$message
+			));
+			$this->response->body($view->render());
+		} catch(Exception $e){
+			// something went really wrong
+			// just quit
+			echo '<!--';
+			//var_dump($e);
+			echo '-->';
+			echo 'Error handling exception';
+			exit;
+		}
+	}
+}

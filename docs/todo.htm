@@ -1,0 +1,203 @@
+----- architectuur ------
+
+collections maar 1 keer hoeven definieren
+
+$_sort_by als veld instellen in Model_Item. in ::init dit gebruiken
+
+install script naar project/install
+	- collections instellen
+	- item / timed instellen
+
+text keys beter maken tool / message / comment / header
+
+html class names beter: met prefixes yf_ yf_a_ etc
+
+
+settings / config nog eens goed overdenken
+
+groupen / nested groepen aan de linkerkant
+
+application: overal updatable bij / af
+
+model : double quotes eruit
+
+alle tabellen nalopen op overbodige fields
+
+alle indexes goed instellen
+
+--------------------------------
+
+
+
+-Delete dialog: 
+	schaduw weg 
+	tekst in blauwe button wit
+	
+- Application dialog:
+	horizontale scrollbar weg
+	
+- website / user rechtsboven
+	lijntje weg
+	rollovertekst wit
+	
+- instellingen
+	wachtwoord input stylen
+	
+- collections
+	chrome: sluitknop doet gek
+	
+- list
+	cat pukkeltje
+	tonen ander icon
+	visible / invisible ander icon
+	images: tools anders
+	streepjes weg bij tools
+	images: 'bekijk' icon
+	images: 'gebruik' icon
+	
+- Categorie select
+	mooiere tree aanduiding
+	
+- Homepage: requests zijn niet goed gestyled
+	
+Form
+module_link hernoemen naar module
+	
+module namen eruit: alle module namen in _text zetten, op een of andere manier
+
+javascript form.request maken voor presets
+
+module en request in een form element zetten, met presets o.i.d
+
+Image recreate
+
+edit / rights users
+
+Home in request / module / link ergens
+
+van alle config files een gestripte versie naar library
+
+
+DONE image collection kan niet deleten
+DONE image collection kan niet slepen
+
+DONE item collection stylen
+
+DONE alle errors, cms dingen stylen
+
+DONE alle dialogs die openen checken of er een window.parent.yf bestaat, a la link_internal
+
+NEE mischien toch item / branch weer lostrekken?
+
+
+
+DONE FE: getimed live zetten
+DONE FE: alleen status 'live' tonen
+
+
+
+
+DONE BE: timed extends item: alle functionaliteiten voor schedule / nieuws / getimed livezetten
+DONE BE: status online / verlopen in list tonen bij nieuws / agenda
+
+DONE deletable / movable / updatable implementeren
+
+DONE form->callback maken met nebewerkinging in funtie
+
+DONE write link functionaliteit
+
+DONE list: keys op een op andere manier instelbaar maken: subviews!
+
+DONE menu: link element werkend krijgen: subrequest o.i.d. -> title van de link tonen via ajax?
+DONE bij internal link: misschien niet title in niet params, maar ophalen via ajax.
+
+
+DONE Link dialog: sections showen / hiden
+DONE Link integreren met tinymce
+
+
+DONE Form: eerste select option toevoegen beter
+
+
+
+
+DONE Tree list view: niet alleen title pakken, maar geconfigureerde keys
+
+
+DONE form (weer) opnieuw. Eenduidig beleid m.b.t. multiple
+	$element en field toch weer in elkaar schuiven
+	$form->element('key','type','settings') return $element
+	
+
+
+DONE collections naar form: met settings e.d.
+
+
+
+
+
+DONE Branch selecteren: niet in branch zelf of in kind kunnen plaatsen
+
+DONE Delete: alle collections verwijderen van verwijderrde branch
+
+
+DONE Alias repareren: blijft nu leeg
+
+
+
+DONE item: create update delete maken voor item en branch
+
+DONE status als constant in Model_Item
+
+DONE rewrite items: alle struct functinaliteiten hierin
+
+
+NIET DOEN write menu functionaliteit: als link een group is: vragen of group laden
+
+
+
+
+
+
+nieuw item:
+	- link: item / group / externe link / image / file / geen (voor
+subitems of sublinks)
+	- subitems(request): link picker met alleen group-items.
+
+
+menu frontend
+
+alle request link uitvoeren, daarin checken op status
+directe link niet checken op status
+menu's cachen
+
+modules model, ombouwen
+linkable zetten bij iedere module. met eventueel overige settings
+
+"page" => array(
+	"title" => [get text],
+	"linkable" => true
+	
+);
+
+
+
+DONE tools views naar library: tools in losse files, net als form?
+
+DONE error controller naar library
+
+NIET DOEN user controller naar library
+
+NIET DOEN user text naar library
+
+
+
+
+DONE library/application/common
+DONE library/application/frontend
+DONE library/application/backend
+
+DONE identity default config naar components
+DONE rewrite identity init / instance: init eruit. Identity laad zelf config
+
+DONE Hook callbacks in array vorm

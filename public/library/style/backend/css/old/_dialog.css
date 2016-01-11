@@ -1,0 +1,97 @@
+.ui-widget-overlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: #111111;
+	height: 100%;
+	width: 100%;
+	filter: Alpha(Opacity=40);
+	-moz-opacity: 0.4;
+	opacity: 0.4;
+}
+
+.ui-dialog {
+	z-index: 100;
+	border: 8px solid rgba(1, 1, 1, 0.3);
+	border: 8px solid #888\0/;
+	*border: 8px solid #888;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 0 12px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0 0 12px rgba(0,0,0,0.2);
+	box-shadow: 0 0 12px rgba(0,0,0,0.2);
+}
+
+
+.ui-dialog-title {
+	font-family: Arial, sans-serif;
+	font-weight: normal;
+	color: #777;
+	text-shadow: 0px 1px 0px #FFF;	/*kan niet in IE*/
+
+}
+
+
+a.ui-dialog-titlebar-close  {
+	display: block;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	right: -20px;
+	top: -20px;
+	background: url(../img/btn_close.png) no-repeat 0 0;
+}
+
+a.ui-dialog-titlebar-close  span {
+	display: none;
+}
+
+.ui-widget-content {
+	text-align: left;
+}
+
+.dialogPadding {
+	padding: 30px 20px;
+	ackground: url(../img/bg_dialogpaddingboxtop.gif) top left repeat-x;
+}
+
+.ui-dialog-content {
+	margin: 0px;
+	background: white;
+}
+
+.ui-dialog-content  .confirmQuestion,
+.ui-dialog-content  .alertMessage {
+	background: red;
+	padding-left: 40px;
+	display: block;
+	min-height: 30px;
+	margin-bottom: 20px;
+	background: url(../img/bg_dialog_confirmquestion.gif) top left no-repeat;
+}
+
+.ui-dialog-content h3 {
+	height: 35px;	
+	line-height: 35px;
+	background: #4e4e4e;
+	color: #fff;
+	padding-left: 10px;	
+	font-size: 12px;
+
+}
+.confirmBtnContainer {
+	text-align: center;
+	height: 30px;
+	
+}
+
+.confirmBtnContainer a.btn{
+	float: none;
+	margin-left: 5px;
+}
+.confirmBtnContainer a.btn:first-child{
+	margin-left: 0px;
+}
+
+

@@ -1,0 +1,25 @@
+<h2>Something went wrong</h2>
+<br />
+<br />
+<?php
+switch($code){
+	case '404':
+		$intro = 'The requested item doesn\'t exist';
+		break;
+	case '403':
+		$intro = 'You are not allowed to view requetsed item';
+		break;
+	case '500':
+		$intro = 'Loading of the page has failed for unknown reasons';
+		break;
+	default:
+		$intro = 'Loading of the page has failed for unknown reasons';
+}
+?>
+
+<br />
+<br />
+Click <a href="#" onClick="javascript:window.history.back(); return false;">here</a> to go to the previous page
+<br />
+<br />
+Click <a href='/'>here</a> to go to the homepage

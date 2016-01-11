@@ -1,0 +1,19 @@
+<?php
+return Settings::extend('item',array(
+	'list'=>array(
+		'create'=>array(
+		),
+		'list'=>array(
+		),
+		'filter'=>Settings::lock(array(
+			'type'=>array(
+				'type'=>'option',
+				'operators'=>array(
+					'='
+				),
+				'options'=>array(
+				),
+			))
+		),
+	),
+));

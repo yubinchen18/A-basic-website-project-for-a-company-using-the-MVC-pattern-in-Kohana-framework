@@ -1,0 +1,27 @@
+/* Grid */
+.container {
+	max-width: 1200px;
+	min-width: 980px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.nav-main.big ._wrap-depth-1 {
+
+	left: 50px; /*compensate container padding(-left)*/
+	
+	/* Firefox */
+	width: -moz-calc(100% - 100px);
+	/* WebKit */
+	width: -webkit-calc(100% - 100px);
+	/* Opera */
+	width: -o-calc(100% - 100px);
+	/* Standard */
+	width: calc(10	0% - 100px);
+}
+
+/* tools */
+.visible-small,
+.visible-big { display: none; }
+.hidden-medium { display: none; }
+.visible-medium,{ display: block; }

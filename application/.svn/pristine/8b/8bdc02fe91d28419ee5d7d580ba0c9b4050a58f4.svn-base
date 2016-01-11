@@ -1,0 +1,3 @@
+<?php if ($url): ?>
+	<?php echo HTML::anchor($url,'edit',array('class'=>'admin-update','target'=>'_blank')); ?>
+<?php endif; ?>

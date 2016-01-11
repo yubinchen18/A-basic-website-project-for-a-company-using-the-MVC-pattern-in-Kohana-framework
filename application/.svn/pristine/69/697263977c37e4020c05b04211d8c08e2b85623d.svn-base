@@ -1,0 +1,29 @@
+<?php
+class Form_Contact extends Form_Base
+{
+	public function init()
+	{
+
+		// set attributes
+		$this->attributes = array('class'=>'form2 formContact corners5');
+
+		$this->element('name','text');
+		$this->element('company','text');
+		$this->element('email','text');
+		$this->element('telephone','text');
+		
+		$this->element('response','radio', array('options'=>array('call_back','more_info', 'send_offer', 'answer')));
+		$this->element('question','textarea');
+
+		//submit
+		$settings = array('attributes'=>array('class'=>'button'));
+		$this->element('send','submit', $settings);
+
+		
+		// RULES
+		$this->rule('name','not_empty');
+		$this->rule('email','not_empty');
+		$this->rule('email','email');
+
+	}
+}

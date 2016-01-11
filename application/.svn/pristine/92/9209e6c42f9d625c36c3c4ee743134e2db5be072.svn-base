@@ -1,0 +1,53 @@
+<div class="yf nav-main" data-use="Menu">
+	<div class="yf-expand expand"><?php echo $_config->title; ?></div>
+	<?php 
+	echo View::factory('menu',array(
+		'depth'=>isset($depth) ? $depth : 0,
+		'items'=>$items,
+		'markup'=>array(
+			0=>array(
+				'wrap'=>array(
+					'tag'=>'ul',
+					'attributes'=>array('class'=>'yf-wrap-depth-0 wrap-depth-0')
+				),
+				'item'=>array(
+					'tag'=>'li',
+					'attributes'=>array('class'=>'yf-item-depth-0')
+				)
+			),
+			1=>array(
+				'wrap'=>array(
+					array(
+						'tag'=>'ul',
+						'attributes'=>array('class'=>'yf-wrap-depth-1 wrap-depth-1')
+					),
+				),
+				'item'=>array(
+					'tag'=>'li',
+					'attributes'=>array('class'=>'yf-item-depth-1')
+				)
+			),
+			2=>array(
+				'wrap'=>array(
+					'tag'=>'ul',
+					'attributes'=>array('class'=>'wrap-depth-2')
+				),
+				'item'=>array(
+					'tag'=>'li',
+					'attributes'=>array('class'=>'yf-item-depth-2')
+				)
+
+			),
+			3=>array(
+				'wrap'=>array(
+					'tag'=>'ul',
+					'attributes'=>array('class'=>'wrap-depth-3')
+				),
+				'item'=>array(
+					'tag'=>'li',
+					'attributes'=>array()
+				)
+			)
+		)
+	))->render(); ?>
+</div>

@@ -1,0 +1,184 @@
+<?php
+
+class Twitter 
+{
+	/**
+	 * Factory
+	 * @return \Twitter
+	 */
+	public static function factory($token=FALSE)
+	{
+		return new Twitter($token);
+	}
+	
+	
+	/**
+	 * Create twitter text 
+	 * @param type $text
+	 * @return type
+	 */
+	public static function twitterify($text)
+	{
+		$ret = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $text);
+		$ret = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $ret);
+		$ret = preg_replace("/@(\w+)/", "<a href=\"http://www.twitter.com/\\1\" target=\"_blank\">@\\1</a>", $ret);
+		$ret = preg_replace("/#(\w+)/", "<a href=\"http://www.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $ret);
+		return $ret;
+	}
+	
+	
+	
+	/**
+	 * obtain a bearer token
+	 * Do this once and store it somewhere
+	 * @param type $key
+	 * @param type $secret
+	 */
+	public static function obtain($key,$secret)
+	{
+		$encoded = base64_encode($key .':' .$secret);
+
+		$request = curl_init();
+		curl_setopt($request, CURLOPT_SSLVERSION, 3);
+		curl_setopt($request, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($request, CURLOPT_URL, 'https://api.twitter.com/oauth2/token');
+		curl_setopt($request, CURLOPT_HTTPHEADER, array(
+			'Authorization: Basic '.$encoded,
+			'Content-Type: application/x-www-form-urlencoded;charset=UTF-8'
+		));
+		curl_setopt($request, CURLOPT_POST, TRUE);
+		curl_setopt($request, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
+		curl_setopt($request, CURLOPT_RETURNTRANSFER, TRUE);
+
+		//curl_setopt($request, CURLINFO_HEADER_OUT, true); // enable tracking do curl request    
+		$response = curl_exec($request);
+		//$headerSent = curl_getinfo($request, CURLINFO_HEADER_OUT ); // request headers
+
+		// json return
+		$result = json_decode($response, true);
+		if($result['token_type'] == 'bearer'){
+			return $result['access_token'];
+		}else{
+			return 'no token obtained';
+		}
+	}
+	
+	
+	/**
+	 * Cache
+	 * @var Cache 
+	 */
+	protected $_cache = FALSE;
+	
+	/**
+	 * Cache
+	 * @var Cache 
+	 */
+	protected $_token = FALSE;
+	
+	/**
+	 * Cache key prefix
+	 * @var String 
+	 */
+	protected $_cache_key = '__twitter_data_';
+	
+	
+	
+	/**
+	 * Cosntructor
+	 */
+	protected function __construct($token)
+	{
+		$this->_token = $token;
+	}
+	
+	
+	/**
+	 * Set cache
+	 * @param Cache $cache
+	 */
+	public function cache($cache)
+	{
+		// set cache
+		$this->_cache = $cache;
+		// chainable
+		return $this;
+	}
+	
+	
+	public function token($token)
+	{
+		// set cache
+		$this->_token = $token;
+		// chainable
+		return $this;
+	}
+	
+	
+	/**
+	 * get data
+	 * @param string $term
+	 */
+	public function data($query='twitter',$type='search',$limit=10,$result='recent')
+	{
+		$cache_key = $this->_cache_key.'_'.$type.'_'.preg_replace('/[^0-9a-zA-Z]/','',$query);
+		
+		if($this->_cache !== FALSE){
+			if($data = $this->_cache->get($cache_key,FALSE)){
+				return $data;
+			} else {
+				$data = $this->_data($query,$type,$limit,$result);
+				$this->_cache->set($cache_key,$data);
+				return $data;
+			}
+		} else {
+			return $this->_data($query,$type,$limit,$result);
+		}
+	}
+	
+	
+	/**
+	 * Ectual get data
+	 * @param type $term
+	 */
+	protected function _data($query,$type,$limit,$result)
+	{
+		if($this->_token === FALSE){
+			throw HTTP_Exception::factory(500, 'Token not set when trying to get Twitter data');
+		}
+		
+		// create search url
+		if($type === 'search'){
+			$url = 'https://api.twitter.com/1.1/search/tweets.json?';
+			$url .= 'q=' .urlencode($query);
+			$url .= '&count=' .$limit;
+			$url .= '&result_type=' .$result;
+		}else {
+			$url = 'https://api.twitter.com/1.1/statuses/user_timeline.json?';
+			$url .= 'screen_name=' .urlencode($query);
+			$url .= '&include_rts=true';
+			$url .= '&count=' .$limit;
+		}
+		
+		$request = curl_init();
+		curl_setopt($request, CURLOPT_SSLVERSION, 3);
+		curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false); // curl does not verify certificate (probably it can't and then the request fails)
+		curl_setopt($request, CURLOPT_URL, $url);
+		curl_setopt($request, CURLOPT_HTTPHEADER, array(
+			'Authorization: Bearer '.$this->_token
+		));
+		curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+
+		try{
+			$result = json_decode(curl_exec($request));
+			if($type === 'search'){
+				return $result->statuses;
+			} else {
+				return $result;
+			}
+		} catch(Exception $e){
+			return array();
+		}
+	}
+}
+

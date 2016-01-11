@@ -1,0 +1,14 @@
+/* Grid */
+.container {
+	max-width: 1200px; /*target width */
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/* tools */
+.visible-small,
+.visible-medium { display: none; }
+.hidden-big { display: none; }
+.visible-big { display: block; }
+
+

@@ -1,0 +1,40 @@
+<?php View::extend('template/default');?>
+
+
+<?php View::start_block('heading') ?>
+	<h1><?php echo text('module.name') ?></h1>		
+	<h2></h2>
+<?php View::end_block(); ?>
+
+
+	
+<?php View::start_block('main');?>
+	<?php if(count($items)>0): ?>
+		<section class="newsList">
+			<?php foreach($items as $item): ?>
+				<div class="item regional_als-het-regional-is">
+					<div class="description">
+						<div class="image">
+							<?php if($image = $item->image_collection->first()): ?>
+								<a href="<?php echo URL::to('Event@view:'.$item->alias,'event'); ?>"><img src="<?php echo $image->src('thumb'); ?>" width="" alt="<?php echo $image->title; ?>" /></a>
+							<?php endif; ?>
+						</div>
+						<h3><?php echo HTML::anchor(URL::to('Event@view:'.$item->alias,'event'),$item->title); ?></h3>
+						<span class="date">
+							<span class="day"><?php echo strftime('%d', strtotime($item->time_start)); ?></span>
+							<span class="month"><?php echo strftime('%B', strtotime($item->time_start)); ?></span>
+						</span>
+						<?php echo Tool::truncate_html(strip_tags($item->raw('body'),'<br>,<br />'), 300, '...'); ?>
+						<?php echo HTML::anchor(URL::to('Event@view:'.$item->alias,'event'), text('label.read_more'), array('class'=>'button-more')); ?>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
+<?php View::end_block(); ?>
+
+	
+	
+<?php View::start_block('aside') ?>
+
+<?php View::end_block(); ?>

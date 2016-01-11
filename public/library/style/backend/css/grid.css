@@ -1,0 +1,16 @@
+/**
+* Properties related to columns and rows
+*/
+
+
+/* screenwide layer */
+.layer{
+	display:block;
+	margin-left: 0;
+	margin-right: 0;
+	width: 100%;
+}
+
+.layer-inner{
+	width: 100%;
+}

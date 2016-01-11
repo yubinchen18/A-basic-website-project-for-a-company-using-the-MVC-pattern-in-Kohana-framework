@@ -1,0 +1,112 @@
+<?php
+class Controller_Search extends Controller_Module
+{
+	public function action_test()
+	{
+		require(VENDORPATH.'sphinx/sphinxapi.php');
+		$sphinx = new SphinxClient;
+		$sphinx->setServer("localhost", 9312);
+		$sphinx->setMatchMode(SPH_MATCH_EXTENDED);
+		$result = $sphinx->query('bananen','search');
+		var_dump($result);
+	}
+	
+	
+	
+	public function action_index()
+	{
+		//prepare full page view
+		$this->page();
+		
+		// get query
+		$queryRaw = $this->request->post('query');
+		
+		// store it to use for autocomplete later
+		$model = ORM::factory('Search');
+		$model->created = date('Y-m-d H:i:s',time());
+		$model->query = $queryRaw;
+		$model->website_id = Website::instance()->id();
+		$model->save();
+		
+		// replace all funny chars
+		$query = str_replace(
+			array('À','Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ñ','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','ß','à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ñ','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ'),
+			array('a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','n','o','o','o','o','o','u','u','u','u','ss','a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','n','o','o','o','o','o','u','u','u','u','y','y'),
+			$queryRaw
+		);
+		// trim / to lower
+		$query = trim(strtolower($query));
+		
+		// kick out everything else
+		$query = preg_replace('/[^a-z0-9\s\,\-\.]+/i','',$query);
+		
+		// word separators
+		$query = preg_replace('/[\s\,\-\.]+/i','#',$query);
+		
+		// split on space
+		$exploded = explode('#',$query);
+		$words = array();
+		
+		// only use words of a certain length
+		foreach($exploded as $word){
+			if(strlen($word) > 3){
+				$words[]=$word;
+			}
+		}
+		
+		// here starts sphinx
+		require VENDORPATH.'sphinx/sphinxapi.php';
+		
+		//Sphinx
+		$s = new SphinxClient;
+		$s->setServer("localhost", 9312);
+		$s->setMatchMode(SPH_MATCH_EXTENDED2);
+		$result = $s->query($words[0],'page');
+		var_dump($result);
+		
+		// resultset
+		/*
+		$results = array();
+		if(count($words)>0){
+
+			// search in specifed modules
+			foreach($this->_settings['search'] as $module => $fields){
+				
+				// craete model
+				$model = ORM::factory(ucfirst($module));
+				$model->filter('website_id',$this->_website->id());
+				$model->filter('status',Model_Item::STATUS_LIVE);
+				$model->filter('branch',0);
+				
+				// create filter
+				$filter = array('where_open');
+				foreach($words as $word){
+					foreach($fields as $field){
+						$filter[]= array('or_where',$field,'LIKE','%'.$word.'%');
+					}
+				}
+				$filter[]= array('where_close');
+				
+				// add filter
+				$model->filter($filter);
+				
+				// get result
+				$result = $model->find_all();
+				
+				// add result if any
+				if(count($result) > 0){
+					// get results
+					$results[$module]=$result;
+				}
+			}
+		}
+		*/
+		
+		$view = View::factory('search/result',array(
+			'query'=>$queryRaw,
+			'results'=>array()
+		));
+		
+		$this->response->body($view->render());
+	}
+}

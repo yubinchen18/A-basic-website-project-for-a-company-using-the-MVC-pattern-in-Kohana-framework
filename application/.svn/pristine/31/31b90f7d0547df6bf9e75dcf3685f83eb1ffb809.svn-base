@@ -1,0 +1,21 @@
+<?php
+class Form_Password extends Form_Base
+{
+	public function init()
+	{
+		// set action
+		$this->action = Route::url('default',array('controller'=>'auth','action'=>'password'));
+		
+		// set attributes
+		$this->attributes = array('class'=>'form');
+		
+		// add fields
+		$this->element('email','text');
+		$this->element('request','submit');
+		
+		// add rules
+		$this->rule('email','not_empty');
+		$this->rule('email','email');
+		$this->rule('email',array($this->user,'email_exists'));
+	}
+}

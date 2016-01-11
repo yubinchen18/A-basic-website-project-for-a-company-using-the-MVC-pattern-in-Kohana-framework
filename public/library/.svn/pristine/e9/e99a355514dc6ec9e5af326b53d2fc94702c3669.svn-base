@@ -1,0 +1,123 @@
+/**
+* Properties related to the positioning, width and height, etc. of elements
+*/
+
+/* stick navigation to top */
+body > .navigation {
+	display:block;
+	position: fixed;
+	z-index:10;
+	margin-left: 0;
+	margin-right: 0;
+	width: 100%;
+}
+
+/* override bootstrap navbar: gets position:fixed from .navigation */
+body > .navigation .navbar-fixed-top {
+	position: relative;
+}
+
+/* module navigation padding*/
+body > .navigation .module{
+	padding: 0px 20px 0px 20px;
+}
+body > .navigation .module h1{
+	margin-top: 5px;
+	margin-bottom: 2px;
+}
+
+/* Position alert */
+body > .navigation .alert {
+	margin-top: 6px;
+	margin-bottom: 0;
+}
+
+/* Position pills */
+body > .navigation .module .title .badge {
+	margin: 6px 0 0 15px;
+}
+
+/* Scrollable menu's */
+.dropdown-menu-scrollable {
+	height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+}
+
+/* Move content down for the fixed navigation */
+/* init value: will be adjusted with js */
+body > div.content{
+	padding-top: 112px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+
+/* Space between filters & alerts */
+.filter .form-group
+{
+	margin-right: 5px;
+}
+
+/* active filters size */
+.filter .alert {
+	margin-top: 5px;
+	padding: 5px;
+	margin-right: 5px;
+}
+
+
+/* space under buttons arrea in form */
+form .buttons{
+	margin-bottom:20px;
+}
+
+/**
+* Tree
+*/
+ul.tree{
+	margin:10px 0 0 0;
+	padding-left: 0;
+}
+
+ul.tree li{
+	display:block;
+}
+
+ul.tree li div.content{
+	margin-bottom:3px;
+	padding:5px;
+}
+
+/* while dragging */
+ul.tree li.placeholder{
+	height:35px;
+	margin-bottom:3px;
+}
+
+/**
+* Form sections
+*/
+form .section{
+	margin-bottom: 15px;
+}
+
+form .section:last-child{
+	margin-bottom: 0px;
+}
+
+/**
+* COLLECTION STYLING
+*/
+.collection .item{
+	margin: 3px;
+}
+
+/* overwriting bootstrap */
+.ui-widget-overlay {
+	position: fixed;
+}
+
+.alert button {
+	margin-left: 8px;
+}

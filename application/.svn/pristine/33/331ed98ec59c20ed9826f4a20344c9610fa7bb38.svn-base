@@ -1,0 +1,20 @@
+<section class="agenda">
+	<h2><?php echo $settings->title; ?></h2>
+	
+	<?php foreach ($items as $item): ?>
+		<div class="item">
+			<a href="<?php echo URL::to('Event@view:'.$item->alias,'event'); ?>" title="<?php echo $item->title ?>" class="blockLink">
+				<div class="description">
+					<span class="datebox"><span class="day"><?php echo date('d',strtotime($item->time_start)); ?></span> <span class="month"><?php echo strftime('%b',strtotime($item->time_start)); ?></span></span>
+					<h3><?php echo $item->title; ?></h3>
+					<?php echo Tool::truncate_html(strip_tags($item->raw('body'),'<br>,<br />'),80,'...'); ?>
+				</div>
+			</a>
+		</div>
+	<?php endforeach; ?>
+	
+	
+	<?php if ($settings->more == '1'): ?>
+		<a href="<?php echo URL::to('Event'); ?>" class="button-more"><?php echo $settings->more_label; ?></a>
+	<?php endif; ?>
+</section>

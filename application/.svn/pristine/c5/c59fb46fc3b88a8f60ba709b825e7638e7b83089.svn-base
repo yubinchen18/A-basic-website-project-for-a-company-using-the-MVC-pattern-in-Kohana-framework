@@ -1,0 +1,6 @@
+<?php 
+echo Request::factory('Event/excerpts')
+->post('settings',$content)
+->execute()
+->body();
+?>

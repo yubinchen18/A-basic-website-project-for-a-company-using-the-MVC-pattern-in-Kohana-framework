@@ -1,0 +1,23 @@
+<?php View::extend('base'); ?>
+
+<?php View::block('class_body','next') ?>
+
+<?php View::start_block('content') ?>
+	<header>
+		<div class="container">	
+			<div class="breadcrumbs">
+				<?php foreach(Breadcrumbs::instance()->items() as $breadcrumb): ?>
+					<?php if ($breadcrumb->href): ?>
+						<a href="<?php echo $breadcrumb->href ?>" <?php echo HTML::attributes($breadcrumb->attributes) ?>><?php echo $breadcrumb->label; ?></a>
+					<?php else: ?>
+						<a <?php echo HTML::attributes($breadcrumb->attributes) ?>><?php echo $breadcrumb->label; ?></a>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<div class="container">
+			<?php View::block('heading') ?>
+		</div>
+	</header>
+	<?php View::block('template') ?>
+<?php View::end_block(); ?>

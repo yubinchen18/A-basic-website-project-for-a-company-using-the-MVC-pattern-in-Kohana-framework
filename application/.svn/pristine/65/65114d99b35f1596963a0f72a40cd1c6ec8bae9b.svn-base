@@ -1,0 +1,236 @@
+<?php
+
+class Controller_Base extends Controller
+{
+	// website object
+	protected $_website = NULL;
+	// config object
+	protected $_config = NULL;
+	// controller string
+	protected $_controller = NULL;
+	// action string
+	protected $_action = NULL;
+	
+	// cache key string
+	protected $_cache_key = FALSE;
+	// cache settings
+	protected $_cache_settings = NULL;
+	// cached yes / no
+	protected $_cached = FALSE;
+	
+
+	/**
+	 * Route before to init
+	 */
+	public function before()
+	{
+		// get website object
+		$this->_website = $this->website();
+		
+		// let Filereader cache results for text / settings
+		Reader::cache(Cache::instance('reader_frontend'));
+
+		// get cache settings
+		$this->_cache_settings = Settings::factory('cache')->get($this->request->controller().'.'.$this->request->action(),FALSE);
+		
+		// create cache key
+		$this->_cache_key = $this->cache_key($this->_website, $this->request, $this->_cache_settings);
+		
+		// check & use cache
+		if($content = $this->cached($this->_cache_key,$this->request,$this->_cache_settings)){
+			$this->response->body($content);
+			$this->_cached = TRUE;
+			return;
+		} else {
+			$this->init();
+		}
+	}
+	
+	
+	/**
+	 * Do caching in after
+	 */
+	public function after()
+	{
+		if($this->_cached === FALSE){
+			$this->cache($this->_cache_key,$this->response->body(),$this->_cache_settings);
+		}
+	}
+	
+	
+	/**
+	 * init
+	 */ 
+	public function init()
+	{
+		// get config object
+		$this->_config = $this->config($this->_website);
+		// get controller
+		$this->_controller = $this->request->controller();
+		// get action
+		$this->_action = $this->request->action();
+
+
+		// prepare url settings
+		$this->url($this->_website);
+	}
+	
+
+	/**
+	 * Get website object and set base url
+	 * @return type
+	 */
+	protected function website()
+	{
+		// get website instance 
+		$website = Website::instance();
+		// feed it the current request so we can figure out the ->id()
+		$website->uri(Request::initial()->uri());
+		// return it
+		return $website;
+	}
+	
+	
+	/**
+	 * Get config 
+	 * @return type
+	 */
+	protected function config($website)
+	{
+		// init cache
+		$cache = Cache::instance('config');
+		$key = 'config_'.$website->id();
+		if($cached = $cache->get($key)){
+			// set cached
+			View::set_global('_config',$cached);
+			// return it
+			return $cached;
+		} else {
+			// get config
+			$config = (object)ORM::factory('Config')
+			->filter('website_id',$website->id())
+			->find();
+			// set config in view
+			View::set_global('_config',$config);
+			// cache it
+			$cache->set($key,$config);
+			// done
+			return $config;
+		}	
+	}
+	
+	
+	/**
+	 * init url settings
+	 * @param type $website
+	 */
+	protected function url($website)
+	{
+		// set URL default route
+		URL::route('frontend');
+		
+		// set website in URL
+		URL::website($website);
+
+		// set it in the URL object, so it can be used to create aliased uri's'
+		URL::alias(Alias::factory($website->id()));
+
+		// get root
+		$root = URL::root();
+		
+		// set base path in Model_Image
+		Model_Image::url_default($root.'files/images/');
+		
+		// set base path in Model_File
+		Model_File::url_default($root.'files/files/');
+		
+		// set URL presets
+		URL::set('base', $root);
+		URL::set('library', $root.'library/');
+		URL::set('vendor', $root.'vendor/');
+		URL::set('files', $root.'files/');
+	}
+	
+	/**
+	 * Init text settings
+	 * @param type $language
+	 * @param type $controller
+	 */
+	protected function text($language,$controller)
+	{
+		// set locale
+		setlocale(LC_ALL, $language.'_'.strtoupper($language).'.utf-8');
+		
+		// set default language of text
+		Text::language($language);
+		// get that language's text instance and configure it
+		Text::instance($language)
+		// load the text for this controller
+		->load($controller)
+		// set the current group
+		->group($controller)
+		// set the current set of substitutes
+		->substitutes('module');
+		
+		// set language in view
+		View::set_global('_language',$language);
+	}
+	
+	
+	//------------------------------
+	// CACHING
+	//------------------------------
+
+	/**
+	 * get cached
+	 */ 
+	protected function cached($key,$request,$settings)
+	{
+		if($key !== FALSE){
+			$cache = Cache::instance($settings['group']);
+			$allow = TRUE;
+			if(isset($settings['filter']) && is_callable($settings['filter'])){
+				$allow = $settings['filter']($request);
+			}
+			if($allow){
+				return $cache->get($key,FALSE);
+			} else {
+				return FALSE;
+			}
+		}
+		return FALSE;
+	}
+	
+	
+	/**
+	 * cache response
+	 */
+	protected function cache($key,$content,$settings)
+	{
+		if($key !== FALSE){
+			$cache = Cache::instance($settings['group']);
+			$cache->set($key,$content,$settings['lifetime']);
+		}
+	}
+	
+
+	/**
+	 * create cache key from request
+	 */
+	protected function cache_key($website, $request,$settings)
+	{
+		if(isset($settings['key']) && $settings['key']){
+			$key = strtr($settings['key'],array(
+				':website'=>$website->id(),
+				':id'=>$request->param('id'),
+				':param1'=>$request->param('param1'),
+				':param2'=>$request->param('param2'),
+				':param3'=>$request->param('param3')
+			));
+			
+			return $key;
+		} else {
+			return FALSE;
+		}
+	}
+}

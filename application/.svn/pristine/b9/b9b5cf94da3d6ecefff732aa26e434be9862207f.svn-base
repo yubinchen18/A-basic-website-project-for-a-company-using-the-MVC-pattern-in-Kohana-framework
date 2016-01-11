@@ -1,0 +1,18 @@
+<?php 
+echo View::factory('menu',array(
+	'depth'=>isset($depth) ? $depth : 0,
+	'items'=>$items,
+	'markup'=>array(
+		0=>array(
+			'wrap'=>array(
+				'tag'=>'div',
+				'attributes'=>array('class'=>'')
+			),
+			'item'=>array(
+				'tag'=>'div',
+				'attributes'=>array('class'=>'')
+			)
+			
+		),
+	)
+))->render(); ?>

@@ -1,0 +1,63 @@
+/* Bootstrap navigation top smaller */
+.navigation .navbar{
+	margin-bottom: 0;
+}
+
+/* Bootstrap: margin between buttons */
+a.btn{
+	margin-right:3px;
+}
+
+
+/* Bootstrap pills in module navigation */
+.navigation .nav-pills li>a {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+.navigation .nav-pills  li > a {
+	color: #333;
+	background-color: #ddd;
+	text-shadow: 0 0;
+}
+.navigation .nav-pills  li > a:hover,
+.navigation .nav-pills  li > a:focus 
+{
+	color: #fff;
+	background-color: #aaa;
+}
+.navigation .nav-pills > .active > a,
+.navigation .nav-pills > .active > a:hover,
+.navigation .nav-pills > .active > a:focus 
+{
+  color: #ffffff;
+  background-color: #0088cc;
+}
+
+/* Bootstrap alerts */
+.alert{
+	padding: 8px;
+}
+
+
+/* Bootstrap pagination */
+.pagination{
+	margin-top: 0;
+	margin-left: 5px;
+	margin-bottom: 0;
+}
+
+/* jQuery-ui: dialogs with iframes get their padding from the content in the iframe */
+.ui-dialog.dialog-application .ui-dialog-content {
+	padding:0;
+	overflow:hidden;
+}
+
+/* jQuery-ui datepicker to the front */
+#ui-datepicker-div{
+	z-index:20 !important;
+}
+
+/* Bootstrap: tabs in forms */
+ul.nav-tabs{
+	margin-bottom: 15px
+}

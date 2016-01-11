@@ -1,0 +1,6 @@
+<?php 
+echo Request::factory('News/excerpts')
+->post('settings',$content)
+->execute()
+->body();
+?>

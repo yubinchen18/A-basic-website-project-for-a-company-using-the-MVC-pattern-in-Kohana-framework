@@ -1,0 +1,30 @@
+<?php 
+echo View::factory('menu',array(
+	'depth'=>isset($depth) ? $depth : 0,
+	'items'=>$items,
+	'markup'=>array(
+		0=>array(
+			'wrap'=>array(
+				'tag'=>'',
+				'attributes'=>array()
+			),
+			'item'=>array(
+				'tag'=>'div',
+				'attributes'=>array('class'=>'menu')
+			)
+		),
+	)
+))->render(); ?>
+
+
+<div class="social">
+	<?php if ($_config->twitter != ''): ?>
+		<a href="<?php echo $_config->twitter; ?>" class="twitter" title="Twitter" target="_blank">Twitter</a>
+	<?php endif; ?>
+	<?php if ($_config->facebook != ''): ?>
+		<a href="<?php echo $_config->facebook; ?>" class="facebook" title="Facebook" target="_blank">Facebook</a>
+	<?php endif; ?>
+	<?php if ($_config->vimeo != ''): ?>
+		<a href="<?php echo $_config->vimeo; ?>" class="vimeo" title="Vimeo" target="_blank">Vimeo</a>
+	<?php endif; ?>
+</div>

@@ -1,0 +1,24 @@
+/*====================================================================================*/
+/*	 				 Specific element styling										  */
+/*====================================================================================*/
+
+
+
+
+
+/* Edit button when logged in */
+.admin-update {
+	position: fixed;
+	right: 3px;
+	top: 3px;
+	display: block;
+	z-index: 1000;
+	text-indent: -400px;
+	width: 60px;
+	height: 60px;
+	background: black url(../img/icon_admin_update.png) center center no-repeat;
+	color: white;
+	line-height: 60px;
+	border-radius: 5px;
+	opacity: 0.3;
+}

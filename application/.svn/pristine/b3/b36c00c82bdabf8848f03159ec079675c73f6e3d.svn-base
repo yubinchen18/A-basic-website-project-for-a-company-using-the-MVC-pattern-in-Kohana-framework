@@ -1,0 +1,41 @@
+<?php View::extend('template/default') ?>
+
+
+<?php View::start_block('heading') ?>
+	<h1><?php echo $item->title ?></h1>		
+	<h2><?php echo date('d-m-Y',strtotime($item->time_start)); ?></h2>
+<?php View::end_block(); ?>
+	
+
+<?php View::start_block('main') ?>
+	<?php echo $item->raw('body'); ?>
+	
+	<?php foreach ($item->image_collection->items() as $image): ?>
+		<?php echo HTML::image(
+			$image->src('small'),
+			array('title'=>$image->title)
+		); ?>
+	<?php endforeach; ?>
+
+	
+	<?php if($item->subscribe == 1): ?>
+		<?php /*echo text('label.subscribe');*/ ?>
+	<?php endif; ?>
+<?php View::end_block(); ?>
+
+
+<?php View::start_block('aside') ?>
+	<section class="agenda">
+		<?php foreach ($items as $item): ?>
+			<div class="item">
+				<a href="<?php echo URL::to('Event@view:'.$item->alias,'event'); ?>" title="<?php echo $item->title ?>" class="blockLink">
+					<div class="description">
+						<span class="datebox"><span class="day"><?php echo date('d',strtotime($item->time_start)); ?></span> <span class="month"><?php echo strftime('%b',strtotime($item->time_start)); ?></span></span>
+						<h3><?php echo $item->title; ?></h3>
+						<?php echo Tool::truncate_html(strip_tags($item->raw('body'),'<br>,<br />'),80,'...'); ?>
+					</div>
+				</a>
+			</div>
+		<?php endforeach; ?>
+	</section>
+<?php View::end_block(); ?>

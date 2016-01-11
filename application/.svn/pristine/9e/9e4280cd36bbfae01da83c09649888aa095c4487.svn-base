@@ -1,0 +1,61 @@
+<?php
+class Form_Register extends Form_Base
+{
+	public function init()
+	{
+		// set action
+		$this->action = Route::url('default',array('controller'=>'auth','action'=>'register'));
+		
+		// set attributes
+		$this->attributes = array('class'=>'form');
+		
+		// add fields
+		$this->element('username','text');
+		$this->element('password','password');
+		$this->element('password2','password');
+		$this->element('email','text');
+		
+		$this->start_group('line');
+		$this->element('terms','checkbox',array('options'=>array('1'),'single'=>true));
+		$this->element('termstext','terms');
+		$this->end_group();
+			
+		
+		$this->element('register','submit');
+		
+		// add rules
+		$this->rule('username','not_empty');
+		$this->rule('username','alpha_numeric');
+		$this->rule('username','min_length',array(':value', 6));
+		$this->rule('username','max_length',array(':value', 16));
+		$this->rule('username',array($this->user,'username_unique'));
+		
+		$this->rule('password','not_empty');
+		$this->rule('password','min_length',array(':value', 6));
+		$this->rule('password2','not_empty');
+		$this->rule('password2',array($this,'password_matches'));
+		
+		$this->rule('email','not_empty');
+		$this->rule('email','email');
+		$this->rule('email',array($this->user,'email_unique'));
+		
+		$this->rule('terms','is',array(':value', '1'));
+	}
+	
+	
+	/**
+	 * password matching validator
+	 *
+	 * @return boolean
+	 */
+	public function password_matches($password2)
+	{
+		$values = $this->values();
+		
+		if($values['password'] === $password2){
+			return true;
+		} else {
+			return false;
+		}
+	}
+}

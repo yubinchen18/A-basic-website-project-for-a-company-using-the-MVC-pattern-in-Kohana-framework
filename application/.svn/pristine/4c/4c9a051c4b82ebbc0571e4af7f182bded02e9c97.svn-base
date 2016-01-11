@@ -1,0 +1,43 @@
+<?php View::extend('template/default') ?>
+
+
+<?php View::start_block('heading') ?>
+	<h1><?php echo $item->title ?></h1>		
+	<h2><?php echo date('d-m-Y',strtotime($item->time_publication)); ?></h2>
+<?php View::end_block(); ?>
+	
+
+<?php View::start_block('main') ?>
+	<?php foreach ($item->image_collection->items() as $image): ?>
+		<?php echo HTML::image(
+			$image->src('wide'),
+			array(
+				'title'=>$image->title,
+				'class'=>'image-100-percent'
+			)
+		); ?>
+	<?php endforeach; ?>
+	
+	<?php echo $item->raw('body'); ?>
+<?php View::end_block(); ?>
+
+<?php View::start_block('aside') ?>
+	<section class="news">
+		<?php foreach ($items as $item): ?>
+			<div class="item">
+				<a href="<?php echo URL::to('News@view:'.$item->alias,'news'); ?>" title="<?php echo $item->title ?>">
+					<div class="description">
+						<div class="image">
+							<?php if($image = $item->image_collection->first()): ?>
+								<img src="<?php echo $image->src('thumb'); ?>" width="59" alt="<?php echo $image->title; ?>" />
+							<?php endif; ?>
+						</div>
+						<h3><?php echo $item->title; ?></h3>
+						<?php echo Tool::truncate_html(strip_tags($item->raw('body'),'<br>,<br />'), 100, '...'); ?>
+						<?php echo HTML::anchor(URL::to('News@view:'.$item->alias,'news'), text('label.read_more'), array('class'=>'button-more')); ?>
+					</div>
+				</a>
+			</div>
+		<?php endforeach; ?>
+	</section>
+<?php View::end_block(); ?>

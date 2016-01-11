@@ -1,0 +1,22 @@
+/* Grid */
+.container {
+	min-width: inherit;
+	overflow: hidden;
+	
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+[class*="span"], .row-fluid [class*="span"] {
+	display: block;
+	float: none;
+	margin-left: 0;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+/* tools */
+.visible-medium,
+.visible-big { display: none; }
+.hidden-small { display: none!important; }
+.visible-small{ display: block; }

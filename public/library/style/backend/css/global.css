@@ -1,0 +1,12 @@
+/**
+* Global properties that can be used anywhere in the document
+*/
+
+.caps {
+	text-transform: uppercase;
+}
+
+.clearfix {
+	display:block;
+	clear:both;
+}

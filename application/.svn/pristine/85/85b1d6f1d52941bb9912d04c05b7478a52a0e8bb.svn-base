@@ -1,0 +1,20 @@
+<div class="yf date" data-use="form.Date" data-settings='<?php echo json_encode(array(
+	'days'=>text('time.days'),
+	'days_short'=>text('time.days_short'),
+	'months'=>text('time.months'),
+	'months_short'=>text('time.months_short'),
+	'today'=>text('time.today'),
+	'close'=>text('label.close'),
+	'previous'=>text('label.previous'),
+	'next'=>text('label.next'),
+	'format_date'=>text('time.format.date',array(),FALSE),
+	'format_separator'=>text('time.format.separator',array(),FALSE),
+	'format_time'=>text('time.format.time',array(),FALSE),
+	'change_month'=>TRUE,
+	'change_year'=>TRUE,
+	'year_range'=>(date('Y',time())-100).':'.(date('Y',time())+1),
+)); ?>'>
+	<!-- http://trentrichardson.com/examples/timepicker/ -->
+	<input type="text" class="yf-date date form-control" />
+	<input type="hidden" class="yf-value" name="<?php echo $element->name; ?>" value="<?php echo $element->value; ?>" />
+</div>

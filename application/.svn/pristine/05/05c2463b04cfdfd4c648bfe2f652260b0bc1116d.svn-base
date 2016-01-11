@@ -1,0 +1,20 @@
+<?php View::extend('next'); ?>
+
+<?php View::start_block('template') ?>
+	<div class="container">
+		<div class="row-fluid gutter-wide">
+			<article class="colspan-8">
+				<?php View::block('content_1') ?>
+				<?php View::block('form') ?>
+				<?php View::block('downloads') ?>
+			</article>
+			<aside class="colspan-4">
+				<?php View::block('map') ?>
+				<?php View::block('submenu') ?>
+				<?php View::block('children') ?>
+				<?php View::block('images') ?>
+				<?php View::block('content_2') ?>
+			</aside><!--//colspan-4-->
+		</div>
+	</div>
+<?php View::end_block(); ?>

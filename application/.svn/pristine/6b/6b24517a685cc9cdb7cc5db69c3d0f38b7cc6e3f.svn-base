@@ -1,0 +1,49 @@
+<?php
+class Controller_Twitter extends Controller_Base
+{
+	public function action_data()
+	{
+		if($this->_cached === FALSE){
+			// create twitter object
+			$twitter = Twitter::factory()
+			->token(Settings::factory('twitter')->get('token'))
+			->cache(Cache::instance('content'));
+
+			// get data
+			$data = $twitter->data(
+				$this->request->post('query'),
+				$this->request->post('type'),
+				10
+			);
+			// extract the correct stuff
+			$result = array();
+			foreach($data as $item){
+				$result[]=array(
+					'name'=>$item->user->name,
+					'screen_name'=>$item->user->screen_name,
+					'text'=>Twitter::twitterify($item->text),
+					'time'=>date('m-d-Y',strtotime($item->created_at))
+				);
+			}
+			// done
+			$this->response->body(json_encode($result));
+		}
+	}
+	
+	/**
+	 * Get a bearer token
+	 * Create application at dev.twitter.com
+	 * use key and secret strings as the first and second parameters
+	 * Store it in settings/twitter and comment this out
+	 */
+	/*
+	public function action_obtain()
+	{
+		$settings = Settings::factory('twitter')
+		$key = $settings->get('key');
+		$secret = $settings->get('secret');
+		$token = Twitter::obtain($key,$secret);
+		$this->response->body($token);
+	}
+	*/
+}

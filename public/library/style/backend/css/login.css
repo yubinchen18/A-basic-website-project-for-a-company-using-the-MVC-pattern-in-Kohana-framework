@@ -1,0 +1,23 @@
+html {
+	height: 100%;
+}
+
+body {
+	background-image: url(../img/login/bg.jpg);
+	background-position: bottom right;
+	background-repeat:no-repeat;
+}
+
+div.container {
+	position: relative;
+	top: 200px;
+}
+
+div.caption.error {
+	margin-bottom: 5px;
+	color: #b94a48;
+}
+
+form .buttons{
+	margin-bottom:20px;
+}

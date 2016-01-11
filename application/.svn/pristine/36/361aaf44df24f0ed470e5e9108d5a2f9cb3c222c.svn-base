@@ -1,0 +1,163 @@
+<?php
+
+// create root node
+$tag = $markup[0]['wrap']['tag'];
+$attributes = isset($markup[0]['wrap']['attributes']) ? $markup[0]['wrap']['attributes'] : array();
+$root = Dom::node($tag,$attributes);
+
+// first parent is the root
+$parent = $root;
+
+//  stack of nested nodes
+$stack = array();
+
+// basedepth
+$baseDepth = isset($depth) ? $depth : 0;
+
+// start at basedepth
+$currentDepth = $baseDepth;
+
+// add current parent to the stack
+$stack[]=$parent;
+
+// go through list
+foreach($items as $item){
+	
+	// get depth
+	$depth = $baseDepth + $item->depth();
+	
+	if(isset($markup[$depth])){
+		// create child
+		if(isset($markup[$depth]['item']['tag'])){
+			$tag = $markup[$depth]['item']['tag'];
+			$attributes = isset($markup[$depth]['item']['attributes']) ? $markup[$depth]['item']['attributes'] : array();
+			$child = Dom::node($tag,$attributes);
+		} elseif(isset($markup[$depth]['item']['fragment'])) {
+			$child = Dom::fragment($markup[$depth]['item']['fragment']);
+		} else {
+			$child = FALSE;
+		}
+		// get type
+		$type = isset($item->type) ? $item->type : 'default';
+		
+		// create conent
+		switch($type){
+			case Model_Menu::TYPE_NONE:
+				$content = HTML::anchor(
+					'#',
+					'<span class="yf-item label">'.$item->title.'</span>',
+					array('class'=>'yf-item label')
+				);
+				//$content = '<span class="yf-item label">'.$item->title.'</span>';
+				break;
+			case Model_Menu::TYPE_LINK:
+				$content = HTML::anchor(
+					$item->link->url(),
+					'<span>'.$item->title.'</span>',
+					array('class'=>'yf-item','title'=>$item->title)
+				);
+				break;
+			case Model_Menu::TYPE_CONTROLLER:
+				$content = HTML::anchor(
+					URL::to($item->controller),
+					'<span>'.$item->title.'</span>',
+					array('class'=>'yf-item','title'=>$item->title)
+				);
+				break;
+			case Model_Menu::TYPE_ITEM:
+				if($item->request !== ''){
+					$content = Request::factory('internal_'.$item->request)
+					->post(array('depth'=>$depth))
+					->execute()
+					->body();
+				} else {
+					$title = $item->title != '' ? $item->title : $item->{strtolower($item->module)}->title;
+					$content = HTML::anchor(
+						URL::to($item->module.'@view:'.$item->item_id),
+						'<span>'.$title.'</span>',
+						array('class'=>'yf-item','title'=>$title)
+					);
+				}
+				break;
+			default:
+				$content = HTML::anchor(
+					URL::to($item->model().'@view:'.$item->id),
+					'<span>'.$item->title.'</span>',
+					array('class'=>'yf-item')
+				);
+		}
+		
+		if($child === FALSE){
+			// no child html, just add the content with an append tag
+			$content.= '<!--append -->';
+			$child = Dom::fragment($content);
+		} else {
+			// append the content to the child node
+			$child->append(Dom::fragment($content));
+		}
+	
+		// calulate depth difference
+		$depthDiff = $depth - $currentDepth;
+	
+		// update current depth
+		$currentDepth = $depth;
+
+		// lookup or create the correct parent to add the item to
+		if($depthDiff>0){
+			// create new parent 
+			// get wrap settings
+			$settings = $markup[$depth]['wrap'];
+			
+			// make sure it is an array with elements, even if it's only one
+			if(Arr::is_assoc($settings)){
+				$settings = array($settings);
+			}
+			
+			$wrapper = NULL;
+			for($i=0;$i<count($settings);$i++){
+				// get info
+				$tag = $settings[$i]['tag'];
+				$attributes = isset($settings[$i]['attributes']) ? $settings[$i]['attributes'] : array();
+				// create a new node
+				$node =  Dom::node($tag,$attributes);
+				
+				if($i === 0){
+					// first pass: wrapper is the first node that is created. 
+					// Everything else will be added to that node
+					$wrapper = $node;
+					// the new parent is the same as the wrapper
+					$newParent = $wrapper;
+				} else {
+					// extra passes: Append the node to the new parent
+					$newParent->append($node);
+					// set that one as the new new parent
+					$newParent = $node;
+				}
+			}
+			
+			// add the outermost wrapper to the last created item
+			$parent->last_child()->append($wrapper);
+		
+			// set the innermost created wrapper element as the new parentelement
+			$parent = $newParent;
+		
+			// add this parent to the stack
+			$stack[]= $parent;
+		
+		} elseif($depthDiff==0){
+			// do nothing
+		} elseif($depthDiff<0){
+			// traverse back thought the tree to set a new parent
+			for($j=0;$j>$depthDiff;$j--){
+				array_pop($stack);
+				$parent = $stack[count($stack)-1];
+			}
+		}
+		// add item to the current parent
+		$parent->append($child);
+	}
+}
+?>
+
+<?php echo $root->render(); ?>
+

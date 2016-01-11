@@ -1,0 +1,30 @@
+<?php
+class Controller_Home extends Controller_Module
+{
+	/**
+	 * view item or list
+	 */
+	public function action_view()
+	{
+		if($this->_cached === FALSE){
+			//prepare full page view
+			$this->page();
+
+			// get item
+			$item = ORM::factory('Home',array('website_id'=>$this->_website->id()));
+
+			// add seo settings if any
+			$this->_seo->title = isset($item->seo_title) ? $item->seo_title : $this->_seo->title;
+			$this->_seo->description = isset($item->seo_description) ? $item->seo_description : $this->_seo->description;
+			$this->_seo->keywords = isset($item->seo_keywords) ? $item->seo_keywords : $this->_seo->keywords;
+
+			// create view
+			$view = View::factory('home',array(
+				'item'=>$item
+			));
+
+			// done
+			$this->response->body($view->render());
+		}
+	}
+}

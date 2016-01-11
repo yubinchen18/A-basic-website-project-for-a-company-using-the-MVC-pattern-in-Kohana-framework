@@ -1,0 +1,128 @@
+<?php
+class Controller_Page extends Controller_Module
+{
+	/**
+	 * view item or list
+	 */
+	public function action_view()
+	{
+		if($this->_cached === FALSE){
+			//prepare full page view
+			$this->page();
+
+			// get id
+			$id = $this->request->param('id',FALSE);
+
+			// get item
+			$item = $this->item($id);
+
+			// if we should get anything from the menu
+			if($item->breadcrumbs == 1 || $item->menu == 1){
+				// try to load menu item
+				$menu_item = ORM::factory('Menu')
+				->filter('type',Model_Menu::TYPE_ITEM)
+				->filter('request','')
+				->filter('module','Page')
+				->filter('item_id',$id)
+				->find();
+				
+				if($menu_item->loaded() === TRUE){
+					
+					// get menu tree
+					$menu = ORM::factory('Menu')
+					->filter('status',Model_Item::STATUS_LIVE)
+					->filter('website_id',$this->_website->id())
+					->branch('main');
+					
+					if($item->breadcrumbs == 1){
+						// set breadcrumbs
+						$path = $menu->path($menu_item->id,FALSE);
+						$breadcrumbs = Breadcrumbs::instance();
+						foreach($path as $step){
+							if($step->type == Model_Menu::TYPE_NONE){
+								$breadcrumbs->add(FALSE,$step->title);
+							}
+							if($step->type == Model_Menu::TYPE_LINK){
+								$breadcrumbs->add($step->link->url(),$step->title);
+							}
+							if($step->type == Model_Menu::TYPE_CONTROLLER){
+								$breadcrumbs->add(URL::to($step->controller),$step->title);
+							}
+							if($step->type == Model_Menu::TYPE_ITEM && $step->request == ''){
+								$breadcrumbs->add(URL::to($step->module.'@view:'.$step->item_id),$step->title);
+							}
+						}
+					}
+					if($item->menu == 1){
+						// set menu
+						$submenu = $menu->branch($menu_item->id)->items(1);
+					}
+				}
+			}
+			
+			// breadcrumb for item
+			Breadcrumbs::instance()->add(URL::to('Page@view:'.$id),$item->title);
+
+			// add seo settings if any
+			$this->_seo->title .= ' '.(isset($item->meta_title) ? $item->meta_title : '');
+			$this->_seo->description .= ' '.(isset($item->meta_description) ? $item->meta_description : '');
+			$this->_seo->keywords .= ','.(isset($item->meta_keywords) ? $item->meta_keywords : '');
+			
+			// do form
+			if($item->form->loaded() === TRUE){
+				// create empty form
+				$form = Form::factory();
+				// fill it up
+				$item->form->build($form);
+				// add a submit button
+				$form->element('submit','submit',array('label'=>$item->form->button));
+				// check if valid
+				if($form->valid()){
+					// send emails
+					$item->form->email(Email::factory());
+					// render after content
+					$formHtml = View::factory('form/after',array('item'=>$item));
+				} else {
+					// render form
+					$formHtml = View::factory('form',array('form'=>$form,'title'=>$item->form->title));
+				}
+			} else {
+				$formHtml = '';
+			}
+
+			// create view
+			$view = View::factory('page/item',array(
+				'controller'=>$this->_controller,
+				'item'=>$item,
+				'submenu'=>isset($submenu) ? $submenu : FALSE,
+				'form'=>$formHtml
+			));
+
+			// done
+			$this->response->body($view->render());
+		}
+	}
+	
+	
+	/**
+	 * TODO: Dit wordt aan een nieuwsbrief systeem gekoppeld, maar voor nu wordt alleen een mail verstuurd
+	 * @return type
+	 */
+	public function action_newsletter()
+	{
+		$email = $this->request->post('email');
+		if(preg_match('/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/', $email)){
+			Email::factory(array(
+				'to_email'=>'martijn@yuna.nl',
+				'to_name'=>'Administratie nieuwsbrieven',
+				'from_email'=>'newsletter@legerdesheils.nl',
+				'from_name'=>'Leger des Heils Website',
+				'subject'=>'Inschrijving nieuwsbrief',
+				'body'=>$email.' is ingeschreven voor de nieuwsbrief',
+			))->send();
+			$this->response->body(json_encode(array('success'=>TRUE)));
+		} else {
+			$this->response->body(json_encode(array('success'=>FALSE)));
+		}
+	}
+}

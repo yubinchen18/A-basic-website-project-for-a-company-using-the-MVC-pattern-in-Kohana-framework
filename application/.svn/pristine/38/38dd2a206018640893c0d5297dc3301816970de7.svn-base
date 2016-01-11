@@ -1,0 +1,16 @@
+<footer>
+	<div class="container footer-inner">
+		<div class="row-fluid">
+			<?php
+			$number = count($footer->content_collection->items());
+			$number = $number <=0 ? 1 : $number;
+			$colspan = floor(12/$number);
+			?>
+			<?php foreach ($footer->content_collection->items() as $content): ?>
+				<div class="colspan-<?php echo $colspan ?>">
+					<?php echo View::factory('content/'.$content->type,array('content'=>$content)); ?>
+				</div> <!--//colspan-3-->
+			<?php endforeach; ?>
+		</div>
+	</div>
+</footer>	

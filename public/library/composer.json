@@ -1,0 +1,12 @@
+{
+    "name": "yf3/library/public",
+    "version": "3",
+    "description": "Yuna Framework 3 Public Library",
+    "authors": [
+        {
+            "name": "Martijn Heijnen",
+            "email": "martijn@yuna.nl",
+            "role": "Developer"
+        }
+    ],
+}

@@ -1,0 +1,142 @@
+/*====================================================================================*/
+/*	 			Grid																							  */
+/*====================================================================================*/
+
+
+body {
+	text-align: center;
+	/*
+	margin-left: 10px;
+	margin-right: 10px;
+	*/
+}
+
+.container {
+	max-width: 1220px; /* Default, will be overridden (responsive) */
+	in-width: 980px; /* Default, will be overridden (responsive) */
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+		
+
+	
+	padding-left: 50px;
+	padding-right: 50px;
+	
+
+	
+	text-align: left;
+	/*
+	-webkit-box-sizing: content-box; 
+	-moz-box-sizing: content-box; 
+	box-sizing: content-box;
+	*/
+}
+
+.container:before, .container:after {
+	content: "";
+	display: table;
+	line-height: 0;
+}
+.container:after {
+	clear: both;
+}
+
+.row-fluid:before, .row-fluid:after {
+	content: "";
+	display: table;
+	line-height: 0;
+}
+.row-fluid:after {
+	clear: both;
+}
+
+.row-fluid {
+	margin-left: -6px;
+	margin-right: -6px;
+}
+
+
+.row-fluid [class*="colspan-"] {
+	display: block;
+	float: left;
+	width: 100%;
+	/*margin-left: 12px;*/
+	padding-left: 6px;
+	padding-right: 6px
+}
+
+
+
+.row-fluid [class*="colspan-"]:first-child {
+	margin-left: 0;
+	
+}
+
+.row-fluid .colspan-1 {
+	width: 8.3333333333333%;
+}
+.row-fluid .colspan-2 {
+	width: 16.666666666667%;
+}
+.row-fluid .colspan-3 {
+	width: 25%;
+}
+.row-fluid .colspan-4 {
+	width: 33.333333333333%;
+}
+.row-fluid .colspan-5 {
+	width: 41.666666666667%;
+}
+.row-fluid .colspan-6 {
+	width: 50%;
+}
+.row-fluid .colspan-7 {
+	width: 58.333333333333%;
+}
+.row-fluid .colspan-8 {
+	width: 66.666666666667%;
+}
+.row-fluid .colspan-9 {
+	width: 75%;
+}
+.row-fluid .colspan-10 {
+	width: 83.333333333333%;
+}
+.row-fluid .colspan-11 {
+	width: 91.666666666667%;
+}
+.row-fluid .colspan-12 {
+	width: 100%;
+}
+
+
+
+	
+
+/*
+Test variable gutter:
+Door de class "gutter-wide" meet te geven aan de row wordt een andere padding op de colommen gegeven. Ook de negatieve marge op de row wordt hierop aangepast
+*/
+.row-fluid.gutter-narrow {
+	margin-left: -6px;
+	margin-right: -6px;
+}
+
+.row-fluid.gutter-wide {
+	margin-left: -20px;
+	margin-right: -20px;
+}
+
+
+.row-fluid.gutter-narrow [class*="colspan-"] {
+	padding-left: 6px;
+	padding-right: 6px
+}
+
+.row-fluid.gutter-wide>[class*="colspan-"] {
+	padding-left: 20px;
+	padding-right: 20px
+}
+
+/**/

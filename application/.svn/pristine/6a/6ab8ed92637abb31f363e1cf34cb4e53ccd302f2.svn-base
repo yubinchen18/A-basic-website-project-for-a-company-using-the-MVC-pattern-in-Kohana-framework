@@ -1,0 +1,13 @@
+<section class="eyecatcher">
+	<h2><?php echo $content->title; ?></h2>
+		
+	<div class="description">
+		<?php echo nl2br($content->text); ?>
+	</div>
+	<?php if($content->link->loaded() === TRUE){
+		$url = $content->link->url();
+	} else {
+		$url = '#';
+	} ?>
+	<a href="<?php echo $url ?>" class="button-cta"><?php echo $content->cta; ?></a>
+</section>

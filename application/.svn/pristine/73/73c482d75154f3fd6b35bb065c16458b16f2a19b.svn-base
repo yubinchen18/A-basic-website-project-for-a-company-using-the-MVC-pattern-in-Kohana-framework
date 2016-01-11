@@ -1,0 +1,8 @@
+<?php if ($content->image->loaded() === TRUE): ?>
+	<div class="image">
+		<img class="image-100-percent" src="<?php echo $content->image->src('wide'); ?>" alt="image" />
+		<?php if ($content->caption !== ''): ?>
+			<div class="caption"><?php echo $content->caption; ?></div>
+		<?php endif; ?>
+	</div>
+<?php endif; ?>

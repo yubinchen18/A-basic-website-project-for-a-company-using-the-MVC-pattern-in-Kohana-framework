@@ -1,0 +1,95 @@
+<?php View::extend('template/page') ?>
+
+<?php View::start_block('heading') ?>
+	<h1><?php echo $item->title; ?></h1>		
+	<h2><?php echo $item->subtitle; ?></h2>
+	
+	<?php if ($item->template == 'action'): ?>
+		<?php echo View::factory('common/slider',array('slides'=>$item->slide_collection->items()))->render(); ?>
+	<?php endif; ?>
+	
+<?php View::end_block(); ?>
+
+
+<?php View::start_block('content_1') ?>
+	<!-- regular data -->
+	<article>
+		<?php if ($item->summary !== ''): ?>
+			<header>
+				<?php echo $item->summary; ?>
+			</header>
+		<?php endif; ?>
+		<!-- Content collections -->
+		<?php foreach($item->content_collection_1->items() as $content): ?>
+			<?php echo View::factory('content/'.$content->type,array('content'=>$content))->render(); ?>
+		<?php endforeach; ?>
+	</article>
+<?php View::end_block(); ?>
+
+
+<?php View::start_block('form') ?>
+	<?php echo $form; ?>
+<?php View::end_block(); ?>		
+	
+
+
+<?php View::start_block('submenu') ?>
+	<?php
+	$submenuItems = array();
+	if($submenu !== FALSE){
+		foreach ($submenu as $menuItem){
+			if($menuItem->type == Model_Menu::TYPE_LINK){
+				$submenuItems[]=array('href'=>$menuItem->link->url(),'label'=>$menuItem->title);
+			}
+			if($menuItem->type == Model_Menu::TYPE_CONTROLLER){
+				$submenuItems[]=array('href'=>URL::to($menuItem->controller),'label'=>$menuItem->title);
+			}
+			if($menuItem->type == Model_Menu::TYPE_ITEM && $menuItem->request == ''){
+				$submenuItems[]=array('href'=>URL::to($menuItem->module.'@view:'.$menuItem->item_id),'label'=>$menuItem->{strtolower($menuItem->module)}->title);
+			}
+		}
+	}
+	?>
+	<?php if(count($submenuItems) > 0): ?>
+		<section>
+			<?php foreach ($submenuItems as $submenuItem): ?>
+				<a href="<?php echo $submenuItem['href'] ?>" class="button"><?php echo $submenuItem['label'] ?></a>
+			<?php endforeach; ?>
+		</section>
+	<?php endif; ?>
+<?php View::end_block(); ?>	
+
+	
+<?php View::start_block('images') ?>
+	<?php $images = $item->image_collection->items(); ?>
+	<?php if (count($images) > 0): ?>
+		<section class="images">
+			<?php foreach($images as $image): ?>
+				<?php if ($src = $image->src('small')): ?>
+					<img class="image-100-percent" title="<?php echo $image->title; ?>" src="<?php echo $src; ?>" />
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</section>
+	<?php endif; ?>
+<?php View::end_block(); ?>		
+	
+
+<?php View::start_block('downloads') ?>
+	<?php $files = $item->file_collection->items(); ?>
+	<?php if (count($files) > 0): ?>
+		<section class="downloads">
+			<h2>Downloads</h2>
+			<?php foreach($files as $file): ?>
+				<a class="button" target="_blank" href="<?php echo $file->href(); ?>"><?php echo $file->title; ?></a>
+			<?php endforeach; ?>
+		</section>
+	<?php endif; ?>
+<?php View::end_block(); ?>
+	
+	
+
+<?php View::start_block('content_2') ?>
+	<?php foreach($item->content_collection_2->items() as $content): ?>
+		<?php echo View::factory('content/'.$content->type,array('content'=>$content))->render(); ?>
+	<?php endforeach; ?>
+<?php View::end_block(); ?>

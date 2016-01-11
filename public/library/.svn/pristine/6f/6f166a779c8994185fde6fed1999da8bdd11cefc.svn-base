@@ -1,0 +1,32 @@
+/**
+* Properties only related to text
+*/
+
+/* override bootstrap */
+.navbar{
+	font-size: 12px;
+}
+
+.navbar a.section{
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+/* Breadcrumbs */
+.navigation .breadcrumbs{
+	font-size: 10px;
+	line-height: 10px;
+	color: #000000;
+}
+
+/* Module title */
+.navigation h1{
+	font-size: 24px;
+	line-height: 24px;
+	margin: 0;
+	color: #7d7d7d;
+	font-weight: normal;
+}
+
+
+

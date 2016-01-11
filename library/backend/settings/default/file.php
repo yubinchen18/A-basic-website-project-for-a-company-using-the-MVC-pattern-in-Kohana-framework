@@ -1,0 +1,44 @@
+<?php
+return Settings::extend('item',array(
+	'form_upload'=>'Upload',
+	'form_store'=>'Store',
+	'list'=>array(
+		'hidable'=>FALSE,
+		'tools'=>array(
+			'update',
+			'delete',
+		),
+		'keys'=>Settings::lock(array(
+			'title',
+			'file'=>array(
+				'view'=>'file'
+			)
+		)),
+		'sort'=>Settings::lock(array(
+			'title'=>'ASC',
+			'file'=>'ASC'
+		)),
+		'filter'=>Settings::lock(array(
+			'title'=>array(
+				'type'=>'text',
+				'operators'=>array(
+					'LIKE',
+				)
+			),
+			'file'=>array(
+				'type'=>'text',
+				'operators'=>array(
+					'LIKE',
+				)
+			)
+		)),
+		'pagination'=>array(
+			'step'=>10
+		),
+	),
+	'unzip' => FALSE,
+	'extensions' => FALSE,
+	'url_files'=>'files/files/',
+	'path_files'=>FILESPATH.'files'.DIRECTORY_SEPARATOR,
+	'path_temp'=>TEMPPATH
+));

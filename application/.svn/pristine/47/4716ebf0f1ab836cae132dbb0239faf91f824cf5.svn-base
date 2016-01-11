@@ -1,0 +1,37 @@
+<div class="yf slider" data-use="Slider">
+	<?php if (count($slides) > 0): ?>
+		<div class="scaler">
+			<?php if (count($slides) > 1): ?>
+			<div class="yf-nav-slider nav-slider">
+				<a href="#" class="previous yf-slide-button yf-slide-button-previous"></a>
+				<a href="#" class="next yf-slide-button yf-slide-button-next"></a>
+			</div>
+			<?php endif; ?>
+
+			<?php $first = TRUE; ?>
+			<?php foreach($slides as $slide): ?>
+
+				<div class="yf-slide yf-slide-<?php echo $slide->id ?> header hidden-small" style="<?php echo $first ? '' : 'display:none;' ?>" data-id="<?php echo $slide->id; ?>">
+					<div class="imgpart">
+						<?php if($slide->image ->loaded()===TRUE && $src = $slide->image->src('slide')): ?>
+							<img src="<?php echo $src; ?>" alt="" />
+						<?php endif; ?>
+					</div>
+					<div class="cta">
+						<?php if($slide->link->loaded()==TRUE) {
+							$href = $slide->link->url();
+						} else {
+							$href = '#';
+						} ?>
+						<a href="<?php echo $href; ?>" class="button-cta"><?php echo nl2br(HTML::chars($slide->title)); ?></a>
+						<a href="<?php echo $href; ?>" class="subtext">
+							<?php echo nl2br(HTML::chars($slide->cta)); ?>
+						</a>
+					</div>
+					<span class="tip-up"></span>
+				</div>
+				<?php $first = FALSE; ?>	
+			<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
+</div>

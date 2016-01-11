@@ -1,0 +1,57 @@
+<?php
+return array(
+	'Auth'=>array(
+		
+	),
+	'Start'=>array(
+		
+	),
+	'Home'=>array(
+		'icon'=>'home',		
+	),
+	'Footer'=>array(
+		'icon'=>'circle-arrow-down',		
+	),
+	'Group'=>array(
+		'icon'=>'',		
+	),
+	'Page'=>array(
+		'icon'=>'edit',	
+	),
+	'News'=>array(
+		'icon'=>'bullhorn',	
+	),
+	'Event'=>array(
+		'icon'=>'calendar',	
+	),
+	'Slide'=>array(
+		'icon'=>'resize-horizontal',
+	),
+	'Form'=>array(
+		'icon'=>'align-justify',
+	),
+	'Content'=>array(
+		'icon'=>'briefcase',
+	),
+	'Menu'=>array(
+		'icon'=>'list',
+	),
+	'Link'=>array(
+				
+	),
+	'User'=>array(
+		'icon'=>'user',			
+	),
+	'Image'=>array(
+		'icon'=>'picture',			
+	),
+	'File'=>array(
+		'icon'=>'file',				
+	),
+	'Config'=>array(
+		'icon'=>'cog',
+	),
+	'Settings'=>array(
+		'icon'=>'wrench',
+	)
+);

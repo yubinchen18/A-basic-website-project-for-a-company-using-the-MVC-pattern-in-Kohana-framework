@@ -1,0 +1,90 @@
+
+/*====================================================================================*/
+/*	 		Media queries for responsive design.													  */
+/*====================================================================================*/
+
+@media screen and (max-width:1680px){
+	
+
+}
+
+/* Smaller than 1200px */
+@media screen and (max-width:1200px){
+	
+	#topNav .topNavItem {
+		float: none;
+		margin-bottom: 10px;
+	}
+	
+}
+
+@media screen and (max-width: 1024px) {
+
+}
+
+/* Smaller than 960px */
+@media screen and (max-width:960px){
+
+	
+
+}
+
+
+
+
+/* Smaller than 768px */
+@media screen and (max-width:768px){
+
+
+			
+}
+
+/* Smaller than 480px */
+@media screen and (max-width:480px){
+	
+	
+
+}
+
+/*----- iPad general -----*/
+
+@media only screen and (device-width: 768px) {
+
+
+}
+
+/* iPad landscape */
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+    
+   
+}
+
+ /* iPad portrait */
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+ 
+}
+
+
+
+/*----- iPhone general -----*/
+@media only screen and (max-device-width: 480px) {
+
+}
+
+/*iphone landscape*/
+@media only screen and (max-device-width: 480px) and (orientation:landscape) {
+
+
+	
+}
+
+/*iPhone portrait*/
+@media screen and (max-device-width: 480px) and (orientation:portrait){
+ 
+  /* Uncomment if you don't want iOS and WinMobile to mobile-optimize the text for you: j.mp/textsizeadjust */
+  /* html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */
+
+}
+
+
+

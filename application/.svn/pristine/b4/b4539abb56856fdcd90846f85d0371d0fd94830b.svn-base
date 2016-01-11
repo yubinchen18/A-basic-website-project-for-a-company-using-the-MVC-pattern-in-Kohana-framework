@@ -1,0 +1,40 @@
+<?php
+class Controller_Event extends Controller_Module
+{
+	
+	protected $_view_item = 'event/item';
+	
+	protected $_view_module = 'event/module';
+	
+	public function page()
+	{
+		parent::page();
+		Breadcrumbs::instance()->add(URL::to('Event'),Text::instance()->get('module.name'));
+	}
+	
+	
+	/**
+	 * Content: Event_preview
+	 */
+	public function action_excerpts()
+	{
+		// Subrequest: get settings from internal POST
+		$settings = $this->request->post('settings');
+		
+		// get items
+		$items = ORM::factory('Event')
+		->filter('website_id',$this->_website->id())
+		->filter('status',Model_Item::STATUS_LIVE)
+		->current()
+		->sort('time_start','DESC')
+		->amount(isset($settings->amount) ? $settings->amount : 3)
+		->items();
+
+		$view = View::factory('event/excerpts',array(
+			'settings'=>Viewer::factory($settings),
+			'items'=>Viewer::factory($items)
+		));
+		
+		$this->response->body($view->render());
+	}
+}

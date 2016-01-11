@@ -1,0 +1,14 @@
+<?php View::extend('next'); ?>
+
+<?php View::start_block('template') ?>
+	<div class="container">
+		<div class="row-fluid gutter-wide">
+			<article class="colspan-8">
+				<?php View::block('main') ?>
+			</article><!--//colspan-4-->
+			<div class="colspan-4">
+				<?php View::block('aside') ?>
+			</div>
+		</div>
+	</div>
+<?php View::end_block(); ?>

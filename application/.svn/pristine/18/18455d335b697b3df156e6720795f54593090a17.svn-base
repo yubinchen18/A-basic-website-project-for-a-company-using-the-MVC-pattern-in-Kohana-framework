@@ -1,0 +1,26 @@
+<?php
+class Controller_Auth extends Controller_Base
+{
+	
+	public function action_check()
+	{
+		$website = $this->_website->id();
+		$controller = $this->request->post('controller');
+		$id = $this->request->post('id');
+		$url = FALSE;
+		if(Identity::instance()->authenticated()){
+			$acl = Acl::init(Identity::instance(),new Model_Rights($this->_website->websites()));
+			if($id == FALSE || $id == ''){
+				if($acl->allowed($controller,'access',NULL,$website)){
+					$url = URL::to($controller,array('website'=>$website),'backend');
+				}
+			} else {
+				if($acl->allowed($controller,'update',$id,$website)){
+					$url = URL::to($controller.'@update:'.$id,array('website'=>$website),'backend');
+				}
+			}
+		}
+		$view = View::factory('common/auth',array('url'=>$url));
+		$this->response->body($view->render());
+	}
+}
